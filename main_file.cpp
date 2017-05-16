@@ -51,7 +51,8 @@ if (action == GLFW_RELEASE)
 //Procedura inicjująca
 void initOpenGLProgram(GLFWwindow* window) {
 	//************Tutaj umieszczaj kod, który należy wykonać raz, na początku programu************
-    glClearColor(0.5,0.4,0,1);
+   // glClearColor(0.12,0.4,0,1);
+     glClearColor(0,1,1,1); // kolor tla
     //glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     glEnable(GL_DEPTH_TEST);
@@ -72,7 +73,7 @@ void drawScene(GLFWwindow* window, float angle) {
     vec3(0.0f,1.0f,0.0f));
 
     mat4 P = perspective(50*PI/180,1.0f,1.0f, 50.0f);
-    glColor3d(0.3, 0.6, 0.8);
+    glColor3d(1, 0.5, 0.1); // kolor rysowania
     glMatrixMode(GL_PROJECTION);
     glLoadMatrixf(glm::value_ptr(P));
     glMatrixMode(GL_MODELVIEW);
@@ -80,13 +81,13 @@ void drawScene(GLFWwindow* window, float angle) {
     M = rotate(M,angle,vec3(0.0f,0.0f,1.0f) );
     glLoadMatrixf(glm::value_ptr(V*M));
 
-    //Models::torus.drawSolid();
+    Models::torus.drawSolid();
 
     M = mat4(1.0f);
     M = translate(M, vec3(-1.0f,0.0f,0.0f));
     M = rotate(M,-angle,vec3(0.0f,0.0f,1.0f) );
     glLoadMatrixf(glm::value_ptr(V*M));
-    //Models::torus.drawSolid();
+    Models::torus.drawSolid();
 
 
 
@@ -105,10 +106,9 @@ void drawScene(GLFWwindow* window, float angle) {
 };
 int geomVertexCount=10;
 
-glColor3d(0.5,1,0.5);
+glColor3d(0, 0, 0); // kolor rysowania
 glEnableClientState(GL_VERTEX_ARRAY);
-glVertexPointer( 3, GL_FLOAT, 0,
- geomVertices);
+glVertexPointer( 3, GL_FLOAT, 0, geomVertices);
 glDrawArrays(GL_LINES,0,geomVertexCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 
@@ -129,7 +129,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	window = glfwCreateWindow(500, 500, "OpenGL", NULL, NULL);  //Utwórz okno 500x500 o tytule "OpenGL" i kontekst OpenGL.
+	window = glfwCreateWindow(800, 800, "Muzeum", NULL, NULL);  //Utwórz okno 500x500 o tytule "OpenGL" i kontekst OpenGL.
 
 	if (!window) //Jeżeli okna nie udało się utworzyć, to zamknij program
 	{
