@@ -2254,7 +2254,7 @@
 1489491214 c:\users\patryk\desktop\gkiw_project\detailed_cube.h
 	"model.h"
 
-1495047071 source:c:\users\patryk\desktop\gkiw_project\main_file.cpp
+1495053455 source:c:\users\patryk\desktop\gkiw_project\main_file.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
@@ -2262,6 +2262,7 @@
 	<glm/gtc/matrix_transform.hpp>
 	<stdlib.h>
 	<stdio.h>
+	"lodepng.h"
 	"constants.h"
 	"allmodels.h"
 
@@ -2358,4 +2359,18 @@
 
 1489491214 source:c:\users\patryk\desktop\gkiw_project\torus.cpp
 	"torus.h"
+
+1493123962 source:c:\users\patryk\desktop\gkiw_project\lodepng.cpp
+	"lodepng.h"
+	<stdio.h>
+	<stdlib.h>
+	<fstream>
+
+1493123962 c:\users\patryk\desktop\gkiw_project\lodepng.h
+	<string.h>
+	<vector>
+	<string>
+	"lodepng.h"
+	<iostream>
+	"lodepng.h"
 
