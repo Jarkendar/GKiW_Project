@@ -33,7 +33,7 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 using namespace glm;
 
 //zmienne globalne
-
+//test
 GLuint tex[10]; // podloga, sciany
 
 
