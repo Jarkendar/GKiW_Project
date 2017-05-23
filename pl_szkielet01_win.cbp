@@ -39,7 +39,7 @@
 			<Add library="glfw3" />
 			<Add library="opengl32" />
 			<Add library="gdi32" />
-			<Add library="glew/lib/glew32.lib" />
+			<Add library="glew\lib\glew32.lib" />
 			<Add directory="glfw/lib" />
 			<Add directory="glew/lib" />
 		</Linker>
@@ -49,6 +49,8 @@
 		<Unit filename="cube.h" />
 		<Unit filename="detailed_cube.cpp" />
 		<Unit filename="detailed_cube.h" />
+		<Unit filename="lodepng.cpp" />
+		<Unit filename="lodepng.h" />
 		<Unit filename="main_file.cpp" />
 		<Unit filename="model.cpp" />
 		<Unit filename="model.h" />

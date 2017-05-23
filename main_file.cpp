@@ -34,9 +34,7 @@ using namespace glm;
 
 //zmienne globalne
 
-GLuint tex; // podloga
-GLuint tex2; // sciany
-
+GLuint tex[10]; // podloga, sciany
 
 
 //Procedura obsługi błędów
@@ -64,27 +62,30 @@ void initOpenGLProgram(GLFWwindow* window) {
 	//************Tutaj umieszczaj kod, który należy wykonać raz, na początku programu************
    // glClearColor(0.12,0.4,0,1);
     glClearColor(0,1,1,1); // kolor tla
+    float lightPos[]={5,1.5,-5.0};
+    //glLightfv(GL_LIGHT0 + 1,GL_POSITION,lightPos);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
-    //glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHT1);
+    glEnable(GL_DEPTH_TEST);
     //glEnable(GL_COLOR_MATERIAL);
     glfwSetKeyCallback(window, key_callback);
 
     std::vector<unsigned char> image;
 	unsigned width, height;
-	unsigned error = lodepng::decode(image, width, height, "blue_marble.png");
-	glGenTextures(1,&tex);
-	glBindTexture(GL_TEXTURE_2D, tex);
+	unsigned error = lodepng::decode(image, width, height, "blue_marble.png");;
+	glGenTextures(2,tex); // inicjacja 2 w tablicy
+	glBindTexture(GL_TEXTURE_2D, tex[0]); // wybranie uchwytu
 	glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
 
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    //glEnable(GL_TEXTURE_2D);
 
-    /*std::vector<unsigned char> image2;
-	unsigned width2, height2;
-	unsigned error2 = lodepng::decode(image2, width2, height2, "light_tiles.png");
-	glGenTextures(1,&tex2);
-	glBindTexture(GL_TEXTURE_2D, tex2);
-	glTexImage2D(GL_TEXTURE_2D, 0, 4, width2, height2, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image2.data());
-    */
+    glBindTexture(GL_TEXTURE_2D, tex[1]); // wybor drugiego uchwytu
+    error = lodepng::decode(image, width, height, "light_tiles.png");
+    glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glEnable(GL_TEXTURE_2D);
@@ -154,24 +155,32 @@ float geomVerticesFloor[]={
 };
 int geomVertexWallsCount = 16;
 int geomVertexFloorCount = 4;
-glColor3d(1, 0.5, 0.3); // kolor rysowania
-glEnableClientState(GL_VERTEX_ARRAY);
-glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWalls);
-glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
-glDisableClientState(GL_VERTEX_ARRAY);
 
-glColor3d(0.5, 0.1, 0.3);
-glBindTexture(GL_TEXTURE_2D,tex);
+//glColor3d(0, 0.5, 0.3); // kolor rysowania
+
+
+//glActiveTexture(GL_TEXTURE0);
+glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-glVertexPointer( 3, GL_FLOAT, 0, geomVerticesFloor);
+glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWalls);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWalls);
+glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+//glColor3d(0.5, 0.1, 0.3);
+
+glBindTexture(GL_TEXTURE_2D,tex[0]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer(3, GL_FLOAT, 0, geomVerticesFloor);
 glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesFloor);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-
-    glfwSwapBuffers(window);
+//glDisable(GL_TEXTURE_2D);
+    glfwSwapBuffers(window); // zawsze ostatnie
 
 }
 
