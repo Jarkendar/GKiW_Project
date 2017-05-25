@@ -37,10 +37,32 @@ using namespace glm;
 GLuint tex[10]; // podloga, sciany
 
 
+
 //Procedura obsługi błędów
 void error_callback(int error, const char* description) {
 	fputs(description, stderr);
 }
+
+int macierzRuchu[20][20] = {{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},//0
+                            {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//1
+                            {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//2
+                            {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//3
+                            {8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8},//4
+                            {8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8},//5
+                            {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//6
+                            {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//7
+                            {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//8
+                            {8,8,8,8,0,0,8,8,8,8,8,8,8,8,0,0,8,8,8,8},//9 połowa
+                            {8,8,8,8,0,0,8,8,8,8,8,8,8,8,0,0,8,8,8,8},//10
+                            {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//11
+                            {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//12
+                            {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//13
+                            {8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8},//14
+                            {8,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8},//15
+                            {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//16
+                            {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//17
+                            {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//18
+                            {8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8}};//19
 
 float speed=3.14;
 float x_camera_position = -5;
@@ -50,7 +72,7 @@ float z_cameraLookAt = 0;
 float ANGLE = 0;
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
-    if (action == GLFW_PRESS) {
+    if (action == GLFW_PRESS) {//pojedyńcze naciśnięcie klawisza
         if (key == GLFW_KEY_RIGHT){
             if( ANGLE == 0){
                 ANGLE = 270;
@@ -125,17 +147,15 @@ void drawScene(GLFWwindow* window, float angle) {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	mat4 M = mat4(1.0f);
-
+//RUCH KAMERY (GRACZA)
 	mat4 V = lookAt(
     vec3(0.0f, 0.0f, 0.0f),//pozycja oka
     vec3(2.0f, 0.0f, 0.0f),//na co patrzy
     vec3(0.0f, 1.0f, 0.0f)); //wektor w górę
-
     V = rotate(V, ANGLE, vec3(0.0f, 1.0f, 0.0f));//obrót wokół osi Y -- oś obrotu prosta przechodząca przez (0,0,0); (0,1,0);
-
     V = translate(V, vec3(-5.0f, 1.9f, 6.0f));//przesunięcie kamery do pozycji wyjściowej
-
     V = translate(V, vec3(x_camera_position, 0, z_camera_position));// przesunięcie kamery do pozycji aktualnej
+//*************************
 
 
     mat4 P = perspective(50*PI/180, 1.0f, 1.0f, 50.0f);
