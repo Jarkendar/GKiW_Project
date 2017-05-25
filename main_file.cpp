@@ -113,9 +113,6 @@ int myCosinus(){
 void displayTrigonometrics(){
     std::cout<<"cos"<<ANGLE<<" "<<cos(ANGLE)<<"\n";
     std::cout<<"sin"<<ANGLE<<" "<<mySinus()<<"\n";
-    for(int i =0; i<361; i++){
-        std::cout<<"cos"<<i<<" "<<cos((float)i*PI/180)<<"\n";
-    }
 }
 
 int matrixPosition(int realPosition){
@@ -124,14 +121,14 @@ int matrixPosition(int realPosition){
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
     if (action == GLFW_PRESS) {//pojedyńcze naciśnięcie klawisza
-        if (key == GLFW_KEY_RIGHT){
+        if (key == GLFW_KEY_LEFT){
             if( ANGLE == 0.0){
                 ANGLE = 270.0;
             }else{
                 ANGLE -= 90.0;
             }
         }
-        if (key == GLFW_KEY_LEFT){
+        if (key == GLFW_KEY_RIGHT){
             if( ANGLE == 270.0){
                 ANGLE = 0.0;
             }else{
@@ -142,7 +139,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             if (ANGLE == 0 || ANGLE == 180){
                 if (macierzRuchu[matrixPosition(x_camera_position+myCosinus())][matrixPosition(z_camera_position)] == 0){
                     macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;//zwolnienie starej pozycji
-                    x_camera_position += myCosinus();
+                    x_camera_position += -myCosinus();
                     macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;//zajęcie nowej pozycji
                 }
             }else{
@@ -157,7 +154,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             if (ANGLE == 0 || ANGLE == 180){
                 if (macierzRuchu[matrixPosition(x_camera_position-myCosinus())][matrixPosition(z_camera_position)] == 0){
                     macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-                    x_camera_position -= myCosinus();
+                    x_camera_position -= -myCosinus();
                     macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
                 }
             }else{
@@ -257,8 +254,133 @@ void drawScene(GLFWwindow* window, float angle) {
 
     M = mat4(1.0f);
     M = translate(M, vec3(0.0f,-3.0f,0.0f));
-//    M = rotate(M,-angle,vec3(0.0f,0.0f,1.0f) );
     glLoadMatrixf(glm::value_ptr(V*M));
+float geomVerticesWallsHorizontalInside[]={
+        0.5f,0.0f,-3.5f,
+        0.5f,height,-3.5f,
+        0.5f,height,3.5f,
+        0.5f,0.0f,3.5f, // sciana przod
+
+        0.5f,0.0f,3.5f,
+        0.5f,height,3.5f,
+        -0.5f,height,3.5f,
+        -0.5f,0.0f,3.5f, // sciana prawa
+
+        -0.5f,0.0f,3.5f,
+        -0.5f,height,3.5f,
+        -0.5f,height,-3.5f,
+        -0.5f,0.0f,-3.5f, // sciana tyl
+
+        -0.5f,0.0f,-3.5f,
+        -0.5f,height,-3.5f,
+        0.5f,height,-3.5f,
+        0.5f,0.0f,-3.5f // sciana lewa
+};
+float geomVerticesWallsVerticalInside[]={
+        -3.5f,0.0f,-0.5f,
+        -3.5f,height,-0.5f,
+        -3.5f,height,0.5f,
+        -3.5f,0.0f,0.5f, // sciana przod
+
+        -3.5f,0.0f,0.5f,
+        -3.5f,height,0.5f,
+        3.5f,height,0.5f,
+        3.5f,0.0f,0.5f, // sciana prawa
+
+        3.5f,0.0f,0.5f,
+        3.5f,height,0.5f,
+        3.5f,height,-0.5f,
+        3.5f,0.0f,-0.5f, // sciana tyl
+
+        3.5f,0.0f,-0.5f,
+        3.5f,height,-0.5f,
+        -3.5f,height,-0.5f,
+        -3.5f,0.0f,-0.5f // sciana lewa
+};
+float geomVerticesWallsLeftOutsite[]={
+        0.5f,0.0f,-9.5f,
+        0.5f,height,-9.5f,
+        0.5f,height,-6.5f,
+        0.5f,0.0f,-6.5f, // sciana przod
+
+        0.5f,0.0f,-6.5f,
+        0.5f,height,-6.5f,
+        -0.5f,height,-6.5f,
+        -0.5f,0.0f,-6.5f, // sciana prawa
+
+        -0.5f,0.0f,-6.5f,
+        -0.5f,height,-6.5f,
+        -0.5f,height,-9.5f,
+        -0.5f,0.0f,-9.5f, // sciana tyl
+
+        -0.5f,0.0f,-9.5f,
+        -0.5f,height,-9.5f,
+        0.5f,height,-9.5f,
+        0.5f,0.0f,-9.5f // sciana lewa
+};
+float geomVerticesWallsUpOutsite[]={
+        9.5f,0.0f,-0.5f,
+        9.5f,height,-0.5f,
+        9.5f,height,0.5f,
+        9.5f,0.0f,0.5f, // sciana przod
+
+        9.5f,0.0f,0.5f,
+        9.5f,height,0.5f,
+        6.5f,height,0.5f,
+        6.5f,0.0f,0.5f, // sciana prawa
+
+        6.5f,0.0f,0.5f,
+        6.5f,height,0.5f,
+        6.5f,height,-0.5f,
+        6.5f,0.0f,-0.5f, // sciana tyl
+
+        6.5f,0.0f,-0.5f,
+        6.5f,height,-0.5f,
+        9.5f,height,-0.5f,
+        9.5f,0.0f,-0.5f // sciana lewa
+};
+float geomVerticesWallsRightOutsite[]={
+        -0.5f,0.0f,9.5f,
+        -0.5f,height,9.5f,
+        -0.5f,height,6.5f,
+        -0.5f,0.0f,6.5f, // sciana przod
+
+        -0.5f,0.0f,6.5f,
+        -0.5f,height,6.5f,
+        0.5f,height,6.5f,
+        0.5f,0.0f,6.5f, // sciana prawa
+
+        0.5f,0.0f,6.5f,
+        0.5f,height,6.5f,
+        0.5f,height,9.5f,
+        0.5f,0.0f,9.5f, // sciana tyl
+
+        0.5f,0.0f,9.5f,
+        0.5f,height,9.5f,
+        -0.5f,height,9.5f,
+        -0.5f,0.0f,9.5f // sciana lewa
+};
+float geomVerticesWallsDownOutsite[]={
+        -9.5f,0.0f,0.5f,
+        -9.5f,height,0.5f,
+        -9.5f,height,-0.5f,
+        -9.5f,0.0f,-0.5f, // sciana przod
+
+        -9.5f,0.0f,-0.5f,
+        -9.5f,height,-0.5f,
+        -6.5f,height,-0.5f,
+        -6.5f,0.0f,-0.5f, // sciana prawa
+
+        -6.5f,0.0f,-0.5f,
+        -6.5f,height,-0.5f,
+        -6.5f,height,0.5f,
+        -6.5f,0.0f,0.5f, // sciana tyl
+
+        -6.5f,0.0f,0.5f,
+        -6.5f,height,0.5f,
+        -9.5f,height,0.5f,
+        -9.5f,0.0f,0.5f // sciana lewa
+};
 float geomVerticesWalls[]={
         -9.5f,0.0f,-9.5f,
         -9.5f,height,-9.5f,
@@ -280,7 +402,6 @@ float geomVerticesWalls[]={
         -9.5f,height,-9.5f,
         -9.5f,0.0f,-9.5f // sciana lewa
 };
-
 float geomVerticesFloor[]={
         -9.5f,0.0f,-9.5f,
         9.5f,0.0f,-9.5f,
@@ -288,26 +409,74 @@ float geomVerticesFloor[]={
         -9.5f,0.0f,9.5f // podloga
 };
 
-/*
-float geomVerticesFloor[]={
-        0.5f,-3.0f,0.5f,
-        19.5f,-3.0f,0.5f,
-        19.5f,-3.0f,19.5f,
-        0.5f,-3.0f,19.5f // podloga
-};
-*/
 int geomVertexWallsCount = 16;
 int geomVertexFloorCount = 4;
 
 //glColor3d(0, 0.5, 0.3); // kolor rysowania
 
-
+//ŚCIANY GŁÓWNE
 //glActiveTexture(GL_TEXTURE0);
 glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWalls);
 glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWalls);
+glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+
+//ŚCIANA ZEWNĘTRZNA MAŁA LEWA
+glBindTexture(GL_TEXTURE_2D,tex[1]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsLeftOutsite);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsLeftOutsite);
+glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//ŚCIANA ZEWNĘTRZNA MAŁA PRAWA
+glBindTexture(GL_TEXTURE_2D,tex[1]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsRightOutsite);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsRightOutsite);
+glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//ŚCIANA ZEWNĘTRZNA MAŁA GÓRNA
+glBindTexture(GL_TEXTURE_2D,tex[1]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsUpOutsite);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsUpOutsite);
+glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//ŚCIANA ZEWNĘTRZNA MAŁA DOLNA
+glBindTexture(GL_TEXTURE_2D,tex[1]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsDownOutsite);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsDownOutsite);
+glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//ŚCIANA WEWNETRZNA MAŁA POZIOMA
+glBindTexture(GL_TEXTURE_2D,tex[1]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsHorizontalInside);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsHorizontalInside);
+glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//ŚCIANA WEWNETRZNA MAŁA PIONOWA
+glBindTexture(GL_TEXTURE_2D,tex[1]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsVerticalInside);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsVerticalInside);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
