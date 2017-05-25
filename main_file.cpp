@@ -148,6 +148,7 @@ void drawScene(GLFWwindow* window, float angle) {
 
 	mat4 M = mat4(1.0f);
 //RUCH KAMERY (GRACZA)
+//pozycja startowa
 	mat4 V = lookAt(
     vec3(0.0f, 0.0f, 0.0f),//pozycja oka
     vec3(2.0f, 0.0f, 0.0f),//na co patrzy
