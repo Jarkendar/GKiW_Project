@@ -218,7 +218,6 @@ void initOpenGLProgram(GLFWwindow* window) {
     glLightfv(GL_LIGHT4,GL_DIFFUSE,spec);
 
 
-
     glLightfv(GL_LIGHT1,GL_POSITION,lightPos1);
     glLightfv(GL_LIGHT2,GL_POSITION,lightPos2);
     glLightfv(GL_LIGHT3,GL_POSITION,lightPos3);
@@ -229,22 +228,44 @@ void initOpenGLProgram(GLFWwindow* window) {
 
     std::vector<unsigned char> image;
 	unsigned width, height;
-	unsigned error = lodepng::decode(image, width, height, "blue_marble.png");;
-	glGenTextures(2,tex); // inicjacja 2 w tablicy
+	unsigned error;
+	// 0 - podloga
+	error = lodepng::decode(image, width, height, "blue_marble.png");
+	glGenTextures(10,tex); // inicjacja 2 w tablicy
 	glBindTexture(GL_TEXTURE_2D, tex[0]); // wybranie uchwytu
 	glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    //glEnable(GL_TEXTURE_2D);
-
-    glBindTexture(GL_TEXTURE_2D, tex[1]); // wybor drugiego uchwytu
-    error = lodepng::decode(image, width, height, "light_tiles.png");
-    glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
-
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glEnable(GL_TEXTURE_2D);
+
+    // 1 - sciany
+    glBindTexture(GL_TEXTURE_2D, tex[1]); // wybor drugiego uchwytu
+    image.clear();
+    error = lodepng::decode(image, width, height, "walls.png");
+    glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glEnable(GL_TEXTURE_2D);
+
+    // 2 - sufit
+    glBindTexture(GL_TEXTURE_2D, tex[2]);
+    image.clear();
+    error = lodepng::decode(image, width, height, "bricks.png");
+    glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glEnable(GL_TEXTURE_2D);
+
+    // 3
+    /*
+    glBindTexture(GL_TEXTURE_2D, tex[3]);
+    image.clear();
+    error = lodepng::decode(image, width, height, "***.png");
+    glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glEnable(GL_TEXTURE_2D);
+    */
 }
 
 //Procedura rysująca zawartość sceny
@@ -538,7 +559,6 @@ int geomVertexFloorCount = 4;
 //glColor3d(0, 0.5, 0.3); // kolor rysowania
 
 //ŚCIANY GŁÓWNE
-//glActiveTexture(GL_TEXTURE0);
 glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -547,8 +567,6 @@ glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWalls);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-
-
 //ŚCIANA ZEWNĘTRZNA MAŁA LEWA
 glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
@@ -639,8 +657,9 @@ glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesDoorBarDown);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//PODLOGA
-glBindTexture(GL_TEXTURE_2D,tex[1]);
+
+//SUFIT
+glBindTexture(GL_TEXTURE_2D,tex[2]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0,  geomVerticesCeiling);
@@ -649,7 +668,7 @@ glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
-//glColor3d(0.5, 0.1, 0.3);
+//PODLOGA
 glBindTexture(GL_TEXTURE_2D,tex[0]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -659,8 +678,8 @@ glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 //glDisable(GL_TEXTURE_2D);
-    glfwSwapBuffers(window); // zawsze ostatnie
 
+    glfwSwapBuffers(window); // zawsze ostatnie
 }
 
 int main(void)
