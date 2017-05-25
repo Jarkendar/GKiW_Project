@@ -33,7 +33,7 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 using namespace glm;
 
 //zmienne globalne
-//test
+
 GLuint tex[10]; // podloga, sciany
 
 
@@ -43,14 +43,42 @@ void error_callback(int error, const char* description) {
 }
 
 float speed=3.14;
-float z_camera_position = -3;
-float x_camera_position = 5;
+float x_camera_position = -5;
+float z_camera_position = 6;
+float x_cameraLookAt = 2;
+float z_cameraLookAt = 0;
+float ANGLE = 0;
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
-    if (action == GLFW_REPEAT) {
-        if (key == GLFW_KEY_RIGHT)x_camera_position -= 0.3;
-        if (key == GLFW_KEY_LEFT) x_camera_position += 0.3;
-        if (key == GLFW_KEY_UP) z_camera_position += 0.3;
-        if (key == GLFW_KEY_DOWN) z_camera_position -= 0.3;
+    if (action == GLFW_PRESS) {
+        if (key == GLFW_KEY_RIGHT){
+            if( ANGLE == 0){
+                ANGLE = 270;
+            }else{
+                ANGLE -= 90;
+            }
+        }
+        if (key == GLFW_KEY_LEFT){
+            if( ANGLE == 270){
+                ANGLE = 0;
+            }else{
+                ANGLE += 90;
+            }
+        }
+        if (key == GLFW_KEY_UP){
+            if (ANGLE == 0 || ANGLE == 180){
+                x_camera_position += cos(ANGLE);
+            }else{
+                z_camera_position += -sin(ANGLE);
+            }
+        }
+        if (key == GLFW_KEY_DOWN){
+            if (ANGLE == 0 || ANGLE == 180){
+                x_camera_position -= cos(ANGLE);
+            }else{
+                z_camera_position -= -sin(ANGLE);
+            }
+        }
         }
 /*if (action == GLFW_RELEASE)
 {
@@ -99,9 +127,16 @@ void drawScene(GLFWwindow* window, float angle) {
 	mat4 M = mat4(1.0f);
 
 	mat4 V = lookAt(
-    vec3(x_camera_position, 1.9f, z_camera_position),
-    vec3(10, 1.4f, -5),
-    vec3(0.0f, 1.0f, 0.0f)); // polozenie kamery
+    vec3(0.0f, 0.0f, 0.0f),//pozycja oka
+    vec3(2.0f, 0.0f, 0.0f),//na co patrzy
+    vec3(0.0f, 1.0f, 0.0f)); //wektor w górę
+
+    V = rotate(V, ANGLE, vec3(0.0f, 1.0f, 0.0f));//obrót wokół osi Y -- oś obrotu prosta przechodząca przez (0,0,0); (0,1,0);
+
+    V = translate(V, vec3(-5.0f, 1.9f, 6.0f));//przesunięcie kamery do pozycji wyjściowej
+
+    V = translate(V, vec3(x_camera_position, 0, z_camera_position));// przesunięcie kamery do pozycji aktualnej
+
 
     mat4 P = perspective(50*PI/180, 1.0f, 1.0f, 50.0f);
     glColor3d(1, 0.5, 0.1); // kolor rysowania
