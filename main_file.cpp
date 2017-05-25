@@ -84,7 +84,20 @@ float barHeight = 2.0f;
 void drawMatrix(){
     for(int i = 0; i < 20; i++){
         for(int j = 0; j < 20; j++){
-            std::cout<<macierzRuchu[i][j]<<" ";
+            switch(macierzRuchu[i][j]){
+                case 1:{
+                    std::cout<<"X ";
+                    break;
+                }
+                case 0:{
+                    std::cout<<"  ";
+                    break;
+                }
+                default:{
+                    std::cout<<macierzRuchu[i][j]<<" ";
+                    break;
+                }
+            }
         }
         std::cout<<"\n";
     }
