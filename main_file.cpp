@@ -77,9 +77,8 @@ int macierzRuchu[20][20] = {{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},//0
 float speed=3.14;
 int x_camera_position = -5; //startowa pozycja X
 int z_camera_position = 6; //startowa pozycja Z
-float x_cameraLookAt = 2;
-float z_cameraLookAt = 0;
 float ANGLE = 0;
+float height = 3.0f;
 
 void drawMatrix(){
     for(int i = 0; i < 20; i++){
@@ -112,8 +111,11 @@ int myCosinus(){
 }
 
 void displayTrigonometrics(){
-    std::cout<<"cos"<<ANGLE<<" "<<myCosinus()<<"\n";
+    std::cout<<"cos"<<ANGLE<<" "<<cos(ANGLE)<<"\n";
     std::cout<<"sin"<<ANGLE<<" "<<mySinus()<<"\n";
+    for(int i =0; i<361; i++){
+        std::cout<<"cos"<<i<<" "<<cos((float)i*PI/180)<<"\n";
+    }
 }
 
 int matrixPosition(int realPosition){
@@ -122,19 +124,18 @@ int matrixPosition(int realPosition){
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
     if (action == GLFW_PRESS) {//pojedyńcze naciśnięcie klawisza
-
         if (key == GLFW_KEY_RIGHT){
-            if( ANGLE == 0){
-                ANGLE = 270;
+            if( ANGLE == 0.0){
+                ANGLE = 270.0;
             }else{
-                ANGLE -= 90;
+                ANGLE -= 90.0;
             }
         }
         if (key == GLFW_KEY_LEFT){
-            if( ANGLE == 270){
-                ANGLE = 0;
+            if( ANGLE == 270.0){
+                ANGLE = 0.0;
             }else{
-                ANGLE += 90;
+                ANGLE += 90.0;
             }
         }
         if (key == GLFW_KEY_UP){
@@ -180,9 +181,11 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 }
 //Procedura inicjująca
 void initOpenGLProgram(GLFWwindow* window) {
+
     macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
     drawMatrix();
     displayTrigonometrics();
+
 	//************Tutaj umieszczaj kod, który należy wykonać raz, na początku programu************
    // glClearColor(0.12,0.4,0,1);
     glClearColor(0,1,1,1); // kolor tla
@@ -223,12 +226,13 @@ void drawScene(GLFWwindow* window, float angle) {
 	mat4 M = mat4(1.0f);
 //RUCH KAMERY (GRACZA)
 //pozycja startowa
+    float tmp = ANGLE*PI/180.0;
 	mat4 V = lookAt(
     vec3(0.0f, 0.0f, 0.0f),//pozycja oka
     vec3(2.0f, 0.0f, 0.0f),//na co patrzy
     vec3(0.0f, 1.0f, 0.0f)); //wektor w górę
-    V = rotate(V, ANGLE, vec3(0.0f, 1.0f, 0.0f));//obrót wokół osi Y -- oś obrotu prosta przechodząca przez (0,0,0); (0,1,0);
-    V = translate(V, vec3(-5.0f, 1.9f, 6.0f));//przesunięcie kamery do pozycji wyjściowej
+    V = rotate(V, tmp, vec3(0.0f, 1.0f, 0.0f));//obrót wokół osi Y -- oś obrotu prosta przechodząca przez (0,0,0); (0,1,0);
+    V = translate(V, vec3(0.0f, 1.9f, 0.0f));//przesunięcie kamery do pozycji wyjściowej
     V = translate(V, vec3(x_camera_position, 0, z_camera_position));// przesunięcie kamery do pozycji aktualnej
 //*************************
 
@@ -238,51 +242,60 @@ void drawScene(GLFWwindow* window, float angle) {
     glMatrixMode(GL_PROJECTION);
     glLoadMatrixf(glm::value_ptr(P));
     glMatrixMode(GL_MODELVIEW);
-    //M = translate(M, vec3(1.0f,0.0f,1.0f));
-    //M = rotate(M,angle,vec3(0.0f,0.0f,1.0f) );
-    //glLoadMatrixf(glm::value_ptr(V*M));
+//    M = translate(M, vec3(1.0f,0.0f,1.0f));
+//    M = rotate(M,angle,vec3(0.0f,0.0f,1.0f) );
+//    glLoadMatrixf(glm::value_ptr(V*M));
 
-    //Models::torus.drawSolid();
-    //glRectf(0,0,4,4);
-    //glColor3d(0, 0.5, 0.1);
-    //M = mat4(1.0f);
-    //M = translate(M, vec3(1.0f,0.0f,-1.0f));
-    //M = rotate(M,-angle,vec3(0.0f,0.0f,1.0f) );
-    //glLoadMatrixf(glm::value_ptr(V*M));
-    //Models::torus.drawSolid();
+//    Models::torus.drawSolid();
+//    glRectf(0,0,4,4);
+//    glColor3d(0, 0.5, 0.1);
+//    M = mat4(1.0f);
+//    M = translate(M, vec3(1.0f,0.0f,-1.0f));
+//    M = rotate(M,-angle,vec3(0.0f,0.0f,1.0f) );
+//    glLoadMatrixf(glm::value_ptr(V*M));
+//    Models::torus.drawSolid();
 
     M = mat4(1.0f);
-    M = translate(M, vec3(0.0f,0.0f,0.0f));
-    M = rotate(M,-angle,vec3(0.0f,0.0f,1.0f) );
+    M = translate(M, vec3(0.0f,-3.0f,0.0f));
+//    M = rotate(M,-angle,vec3(0.0f,0.0f,1.0f) );
     glLoadMatrixf(glm::value_ptr(V*M));
-    float geomVerticesWalls[]={
-        0,0,0,
-        0,3,0,
-        16,3,0,
-        16,0,0, // sciana przod
+float geomVerticesWalls[]={
+        -9.5f,0.0f,-9.5f,
+        -9.5f,height,-9.5f,
+        9.5f,height,-9.5f,
+        9.5f,0.0f,-9.5f, // sciana przod
 
-        16,0,0,
-        16,3,0,
-        16,3,-10,
-        16,0,-10, // sciana prawa
+        9.5f,0.0f,-9.5f,
+        9.5f,height,-9.5f,
+        9.5f,height,9.5f,
+        9.5f,0.0f,9.5f, // sciana prawa
 
-        16,0,-10,
-        16,3,-10,
-        0,3,-10,
-        0,0,-10, // sciana tyl
+        9.5f,0.0f,9.5f,
+        9.5f,height,9.5f,
+        -9.5f,height,9.5f,
+        -9.5f,0.0f,9.5f, // sciana tyl
 
-        0,0,-10,
-        0,3,-10,
-        0,3,0,
-        0,0,0, // sciana lewa
+        -9.5f,0.0f,9.5f,
+        -9.5f,height,9.5f,
+        -9.5f,height,-9.5f,
+        -9.5f,0.0f,-9.5f // sciana lewa
 };
 
 float geomVerticesFloor[]={
-        0,0,0,
-        16,0,0,
-        16,0,-10,
-        0,0,-10 // podloga
+        -9.5f,0.0f,-9.5f,
+        9.5f,0.0f,-9.5f,
+        9.5f,0.0f,9.5f,
+        -9.5f,0.0f,9.5f // podloga
 };
+
+/*
+float geomVerticesFloor[]={
+        0.5f,-3.0f,0.5f,
+        19.5f,-3.0f,0.5f,
+        19.5f,-3.0f,19.5f,
+        0.5f,-3.0f,19.5f // podloga
+};
+*/
 int geomVertexWallsCount = 16;
 int geomVertexFloorCount = 4;
 
