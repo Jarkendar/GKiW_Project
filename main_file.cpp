@@ -187,13 +187,44 @@ void initOpenGLProgram(GLFWwindow* window) {
 	//************Tutaj umieszczaj kod, który należy wykonać raz, na początku programu************
    // glClearColor(0.12,0.4,0,1);
     glClearColor(0,1,1,1); // kolor tla
-    float lightPos[]={5,1.5,-5.0};
-    //glLightfv(GL_LIGHT0 + 1,GL_POSITION,lightPos);
+
+    float diff[] = {1,1,1,1};
+    float spec[] = {1,1,1,1};
+    float lightPos1[] = {5.0f, height, -5.0f, 1.0f}; // lewy dol na minimapie
+    float lightPos2[] = {-5.0f, height, -5.0f, 1.0f}; // lewa gora
+    float lightPos3[] = {5.0f, height, 5.0f, 1.0f}; // prawy dol
+    float lightPos4[] = {-5.0f, height, 5.0f, 1.0f}; // prawa gora
+
+    glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
+    glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
     glEnable(GL_LIGHT1);
+    glEnable(GL_LIGHT2);
+    glEnable(GL_LIGHT3);
+    glEnable(GL_LIGHT4);
+
+
+    glLightfv(GL_LIGHT1,GL_AMBIENT,diff);
+    glLightfv(GL_LIGHT1,GL_DIFFUSE,spec);
+
+    glLightfv(GL_LIGHT2,GL_AMBIENT,diff);
+    glLightfv(GL_LIGHT2,GL_DIFFUSE,spec);
+
+    glLightfv(GL_LIGHT3,GL_AMBIENT,diff);
+    glLightfv(GL_LIGHT3,GL_DIFFUSE,spec);
+
+    glLightfv(GL_LIGHT4,GL_AMBIENT,diff);
+    glLightfv(GL_LIGHT4,GL_DIFFUSE,spec);
+
+
+
+    glLightfv(GL_LIGHT1,GL_POSITION,lightPos1);
+    glLightfv(GL_LIGHT2,GL_POSITION,lightPos2);
+    glLightfv(GL_LIGHT3,GL_POSITION,lightPos3);
+    glLightfv(GL_LIGHT4,GL_POSITION,lightPos4);
+
     glEnable(GL_DEPTH_TEST);
-    //glEnable(GL_COLOR_MATERIAL);
     glfwSetKeyCallback(window, key_callback);
 
     std::vector<unsigned char> image;
