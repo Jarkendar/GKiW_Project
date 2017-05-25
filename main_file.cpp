@@ -26,6 +26,7 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 #include <glm/gtc/matrix_transform.hpp>
 #include <stdlib.h>
 #include <stdio.h>
+#include <iostream>
 #include "lodepng.h"
 #include "constants.h"
 #include "allmodels.h"
@@ -42,7 +43,16 @@ GLuint tex[10]; // podloga, sciany
 void error_callback(int error, const char* description) {
 	fputs(description, stderr);
 }
+// --->x
+/*
+    |
+    |   z
+    |
+   \|/
+    |
 
+*/
+//8 ściana, 0 można się poruszać, 1 gracz, 2 bot
 int macierzRuchu[20][20] = {{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},//0
                             {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//1
                             {8,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,0,8},//2
@@ -65,14 +75,54 @@ int macierzRuchu[20][20] = {{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},//0
                             {8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8}};//19
 
 float speed=3.14;
-float x_camera_position = -5;
-float z_camera_position = 6;
+int x_camera_position = -5; //startowa pozycja X
+int z_camera_position = 6; //startowa pozycja Z
 float x_cameraLookAt = 2;
 float z_cameraLookAt = 0;
 float ANGLE = 0;
 
+void drawMatrix(){
+    for(int i = 0; i < 20; i++){
+        for(int j = 0; j < 20; j++){
+            std::cout<<macierzRuchu[i][j]<<" ";
+        }
+        std::cout<<"\n";
+    }
+
+    std::cout<<"Pozycja gracza : x="<<x_camera_position<<" z="<<z_camera_position<<"\n"<<"\n";
+
+}
+
+int mySinus(){
+    switch ((int)ANGLE){
+        case 0: return 0;
+        case 90: return 1;
+        case 180: return 0;
+        case 270: return -1;
+    }
+}
+
+int myCosinus(){
+    switch ((int)ANGLE){
+        case 0: return 1;
+        case 90: return 0;
+        case 180: return -1;
+        case 270: return 0;
+    }
+}
+
+void displayTrigonometrics(){
+    std::cout<<"cos"<<ANGLE<<" "<<myCosinus()<<"\n";
+    std::cout<<"sin"<<ANGLE<<" "<<mySinus()<<"\n";
+}
+
+int matrixPosition(int realPosition){
+    return realPosition+10;
+}
+
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
     if (action == GLFW_PRESS) {//pojedyńcze naciśnięcie klawisza
+
         if (key == GLFW_KEY_RIGHT){
             if( ANGLE == 0){
                 ANGLE = 270;
@@ -89,19 +139,40 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
         if (key == GLFW_KEY_UP){
             if (ANGLE == 0 || ANGLE == 180){
-                x_camera_position += cos(ANGLE);
+                if (macierzRuchu[matrixPosition(x_camera_position+myCosinus())][matrixPosition(z_camera_position)] == 0){
+                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;//zwolnienie starej pozycji
+                    x_camera_position += myCosinus();
+                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;//zajęcie nowej pozycji
+                }
             }else{
-                z_camera_position += -sin(ANGLE);
+                if (macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position-mySinus())] == 0){
+                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
+                    z_camera_position += -mySinus();
+                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+                }
             }
         }
         if (key == GLFW_KEY_DOWN){
             if (ANGLE == 0 || ANGLE == 180){
-                x_camera_position -= cos(ANGLE);
+                if (macierzRuchu[matrixPosition(x_camera_position-myCosinus())][matrixPosition(z_camera_position)] == 0){
+                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
+                    x_camera_position -= myCosinus();
+                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+                }
             }else{
-                z_camera_position -= -sin(ANGLE);
+                if (macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position+mySinus())] == 0){
+                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
+                    z_camera_position -= -mySinus();
+                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+                }
+
             }
         }
         }
+        drawMatrix();
+        displayTrigonometrics();
+
+
 /*if (action == GLFW_RELEASE)
 {
     if (key == GLFW_KEY_RIGHT || key == GLFW_KEY_LEFT) speed = 0;
@@ -109,6 +180,9 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 }
 //Procedura inicjująca
 void initOpenGLProgram(GLFWwindow* window) {
+    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+    drawMatrix();
+    displayTrigonometrics();
 	//************Tutaj umieszczaj kod, który należy wykonać raz, na początku programu************
    // glClearColor(0.12,0.4,0,1);
     glClearColor(0,1,1,1); // kolor tla
