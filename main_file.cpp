@@ -82,7 +82,7 @@ float height = 3.0f;
 float barHeight = 2.0f;
 
 void drawMatrix(){
-    for(int i = 0; i < 20; i++){
+    for(int i = 19; i >= 0; i--){
         for(int j = 0; j < 20; j++){
             switch(macierzRuchu[i][j]){
                 case 1:{
@@ -135,14 +135,14 @@ int matrixPosition(int realPosition){
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
     if (action == GLFW_PRESS) {//pojedyńcze naciśnięcie klawisza
-        if (key == GLFW_KEY_RIGHT){
+        if (key == GLFW_KEY_LEFT){
             if( ANGLE == 0.0){
                 ANGLE = 270.0;
             }else{
                 ANGLE -= 90.0;
             }
         }
-        if (key == GLFW_KEY_LEFT){
+        if (key == GLFW_KEY_RIGHT){
             if( ANGLE == 270.0){
                 ANGLE = 0.0;
             }else{
@@ -292,7 +292,7 @@ void drawScene(GLFWwindow* window, float angle) {
     float tmp = ANGLE*PI/180.0;
 	mat4 V = lookAt(
     vec3(0.0f, 0.0f, 0.0f),//pozycja oka
-    vec3(2.0f, 0.0f, 0.0f),//na co patrzy
+    vec3(0.5f, 0.0f, 0.0f),//na co patrzy
     vec3(0.0f, 1.0f, 0.0f)); //wektor w górę
     V = rotate(V, tmp, vec3(0.0f, 1.0f, 0.0f));//obrót wokół osi Y -- oś obrotu prosta przechodząca przez (0,0,0); (0,1,0);
     V = translate(V, vec3(0.0f, 1.9f, 0.0f));//przesunięcie kamery do pozycji wyjściowej
@@ -408,13 +408,13 @@ float geomVerticesDoorBarRight[]={
 float geomVerticesWallsHorizontalInside[]={
         0.5f,0.0f,-3.5f,
         0.5f,height,-3.5f,
-        0.5f,height,-3.5f,
-        0.5f,0.0f,-3.5f, // sciana przod
+        0.5f,height,3.5f,
+        0.5f,0.0f,3.5f, // sciana przod
 
-        0.5f,0.0f,-3.5f,
-        0.5f,height,-3.5f,
-        -0.5f,height,-6.5f,
-        -0.5f,0.0f,-6.5f, // sciana prawa
+        0.5f,0.0f,3.5f,
+        0.5f,height,3.5f,
+        -0.5f,height,3.5f,
+        -0.5f,0.0f,3.5f, // sciana prawa
 
         -0.5f,0.0f,3.5f,
         -0.5f,height,3.5f,
