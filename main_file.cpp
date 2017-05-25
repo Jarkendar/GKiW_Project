@@ -79,6 +79,7 @@ int x_camera_position = -5; //startowa pozycja X
 int z_camera_position = 6; //startowa pozycja Z
 float ANGLE = 0;
 float height = 3.0f;
+float barHeight = 2.0f;
 
 void drawMatrix(){
     for(int i = 0; i < 20; i++){
@@ -116,19 +117,19 @@ void displayTrigonometrics(){
 }
 
 int matrixPosition(int realPosition){
-    return realPosition+10;
+    return realPosition+9;
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
     if (action == GLFW_PRESS) {//pojedyńcze naciśnięcie klawisza
-        if (key == GLFW_KEY_LEFT){
+        if (key == GLFW_KEY_RIGHT){
             if( ANGLE == 0.0){
                 ANGLE = 270.0;
             }else{
                 ANGLE -= 90.0;
             }
         }
-        if (key == GLFW_KEY_RIGHT){
+        if (key == GLFW_KEY_LEFT){
             if( ANGLE == 270.0){
                 ANGLE = 0.0;
             }else{
@@ -137,7 +138,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
         if (key == GLFW_KEY_UP){
             if (ANGLE == 0 || ANGLE == 180){
-                if (macierzRuchu[matrixPosition(x_camera_position+myCosinus())][matrixPosition(z_camera_position)] == 0){
+                if (macierzRuchu[matrixPosition(x_camera_position-myCosinus())][matrixPosition(z_camera_position)] == 0){
                     macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;//zwolnienie starej pozycji
                     x_camera_position += -myCosinus();
                     macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;//zajęcie nowej pozycji
@@ -152,7 +153,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
         if (key == GLFW_KEY_DOWN){
             if (ANGLE == 0 || ANGLE == 180){
-                if (macierzRuchu[matrixPosition(x_camera_position-myCosinus())][matrixPosition(z_camera_position)] == 0){
+                if (macierzRuchu[matrixPosition(x_camera_position+myCosinus())][matrixPosition(z_camera_position)] == 0){
                     macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
                     x_camera_position -= -myCosinus();
                     macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
@@ -255,16 +256,100 @@ void drawScene(GLFWwindow* window, float angle) {
     M = mat4(1.0f);
     M = translate(M, vec3(0.0f,-3.0f,0.0f));
     glLoadMatrixf(glm::value_ptr(V*M));
+float geomVerticesDoorBarUp[]={
+        -6.5f,barHeight,0.5f,
+        -6.5f,height,0.5f,
+        -3.5f,height,0.5f,
+        -3.5f,barHeight,0.5f, // sciana przod
+
+        -6.5f,barHeight,0.5f,
+        -3.5f,barHeight,0.5f,
+        -3.5f,barHeight,-0.5f,
+        -6.5f,barHeight,-0.5f, // sciana dolna
+
+        -6.5f,barHeight,-0.5f,
+        -3.5f,barHeight,-0.5f,
+        -3.5f,height,-0.5f,
+        -6.5f,height,-0.5f, // sciana tyl
+
+        -6.5f,height,-0.5f,
+        -3.5f,height,-0.5f,
+        -3.5f,height,0.5f,
+        -6.5f,height,0.5f, // sciana lewa
+};
+float geomVerticesDoorBarDown[]={
+        6.5f,barHeight,0.5f,
+        6.5f,height,0.5f,
+        3.5f,height,0.5f,
+        3.5f,barHeight,0.5f, // sciana przod
+
+        6.5f,barHeight,0.5f,
+        3.5f,barHeight,0.5f,
+        3.5f,barHeight,-0.5f,
+        6.5f,barHeight,-0.5f, // sciana dolna
+
+        6.5f,barHeight,-0.5f,
+        3.5f,barHeight,-0.5f,
+        3.5f,height,-0.5f,
+        6.5f,height,-0.5f, // sciana tyl
+
+        6.5f,height,-0.5f,
+        3.5f,height,-0.5f,
+        3.5f,height,0.5f,
+        6.5f,height,0.5f, // sciana lewa
+};
+float geomVerticesDoorBarLeft[]={
+        0.5f,barHeight,-3.5f,
+        0.5f,height,-3.5f,
+        0.5f,height,-6.5f,
+        0.5f,barHeight,-6.5f, // sciana przod
+
+        0.5f,barHeight,-6.5f,
+        0.5f,barHeight,-3.5f,
+        -0.5f,barHeight,-3.5f,
+        -0.5f,barHeight,-6.5f, // sciana dolna
+
+        -0.5f,barHeight,-6.5f,
+        -0.5f,barHeight,-3.5f,
+        -0.5f,height,-3.5f,
+        -0.5f,height,-6.5f, // sciana tyl
+
+        -0.5f,height,-6.5f,
+        -0.5f,height,-3.5f,
+        0.5f,height,-3.5f,
+        0.5f,height,-6.5f, // sciana lewa
+};
+float geomVerticesDoorBarRight[]={
+        0.5f,barHeight,3.5f,
+        0.5f,height,3.5f,
+        0.5f,height,6.5f,
+        0.5f,barHeight,6.5f, // sciana przod
+
+        0.5f,barHeight,6.5f,
+        0.5f,barHeight,3.5f,
+        -0.5f,barHeight,3.5f,
+        -0.5f,barHeight,6.5f, // sciana dolna
+
+        -0.5f,barHeight,6.5f,
+        -0.5f,barHeight,3.5f,
+        -0.5f,height,3.5f,
+        -0.5f,height,6.5f, // sciana tyl
+
+        -0.5f,height,6.5f,
+        -0.5f,height,3.5f,
+        0.5f,height,3.5f,
+        0.5f,height,6.5f, // sciana górna
+};
 float geomVerticesWallsHorizontalInside[]={
         0.5f,0.0f,-3.5f,
         0.5f,height,-3.5f,
-        0.5f,height,3.5f,
-        0.5f,0.0f,3.5f, // sciana przod
+        0.5f,height,-3.5f,
+        0.5f,0.0f,-3.5f, // sciana przod
 
-        0.5f,0.0f,3.5f,
-        0.5f,height,3.5f,
-        -0.5f,height,3.5f,
-        -0.5f,0.0f,3.5f, // sciana prawa
+        0.5f,0.0f,-3.5f,
+        0.5f,height,-3.5f,
+        -0.5f,height,-6.5f,
+        -0.5f,0.0f,-6.5f, // sciana prawa
 
         -0.5f,0.0f,3.5f,
         -0.5f,height,3.5f,
@@ -477,6 +562,42 @@ glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsVerticalInside);
 glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsVerticalInside);
+glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//BELKA NAD LEWYM PRZEJSCIEM
+glBindTexture(GL_TEXTURE_2D,tex[1]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer( 3, GL_FLOAT, 0, geomVerticesDoorBarLeft);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesDoorBarLeft);
+glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//BELKA NAD PRAWYM PRZEJSCIEM
+glBindTexture(GL_TEXTURE_2D,tex[1]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer( 3, GL_FLOAT, 0, geomVerticesDoorBarRight);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesDoorBarRight);
+glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//BELKA NAD GORNYM PRZEJSCIEM
+glBindTexture(GL_TEXTURE_2D,tex[1]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer( 3, GL_FLOAT, 0, geomVerticesDoorBarUp);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesDoorBarUp);
+glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//BELKA NAD DOLNYM PRZEJSCIEM
+glBindTexture(GL_TEXTURE_2D,tex[1]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer( 3, GL_FLOAT, 0, geomVerticesDoorBarDown);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesDoorBarDown);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
