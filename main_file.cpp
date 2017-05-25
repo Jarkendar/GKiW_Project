@@ -525,6 +525,13 @@ float geomVerticesFloor[]={
         -9.5f,0.0f,9.5f // podloga
 };
 
+float geomVerticesCeiling[]={
+        -9.5f,height,-9.5f,
+        9.5f,height,-9.5f,
+        9.5f,height,9.5f,
+        -9.5f,height,9.5f // podloga
+};
+
 int geomVertexWallsCount = 16;
 int geomVertexFloorCount = 4;
 
@@ -632,9 +639,17 @@ glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesDoorBarDown);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//PODLOGA
+glBindTexture(GL_TEXTURE_2D,tex[1]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer( 3, GL_FLOAT, 0,  geomVerticesCeiling);
+glTexCoordPointer( 2, GL_FLOAT, 0,  geomVerticesCeiling);
+glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 //glColor3d(0.5, 0.1, 0.3);
-
 glBindTexture(GL_TEXTURE_2D,tex[0]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
