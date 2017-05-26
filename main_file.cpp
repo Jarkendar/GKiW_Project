@@ -80,6 +80,8 @@ int z_camera_position = 6; //startowa pozycja Z
 float ANGLE = 0;
 float height = 3.0f;
 float barHeight = 2.0f;
+float pictureLowerBound = 1.0f;
+float pictureUpperBound = 2.5f;
 
 void drawMatrix(){
     for(int i = 19; i >= 0; i--){
@@ -321,6 +323,56 @@ void drawScene(GLFWwindow* window, float angle) {
     M = mat4(1.0f);
     M = translate(M, vec3(0.0f,-3.0f,0.0f));
     glLoadMatrixf(glm::value_ptr(V*M));
+
+float geomVerticesPicture0[]={
+    9.4f,pictureLowerBound,-6.0f,
+    9.4f,pictureLowerBound,-4.0f,
+    9.4f,pictureUpperBound,-4.0f,
+    9.4f,pictureUpperBound,-6.0f
+};
+float geomVerticesPicture1[]={
+    9.4f,pictureLowerBound,6.0f,
+    9.4f,pictureLowerBound,4.0f,
+    9.4f,pictureUpperBound,4.0f,
+    9.4f,pictureUpperBound,6.0f
+};
+float geomVerticesPicture2[]={
+    -9.4f,pictureLowerBound,-6.0f,
+    -9.4f,pictureLowerBound,-4.0f,
+    -9.4f,pictureUpperBound,-4.0f,
+    -9.4f,pictureUpperBound,-6.0f
+};
+float geomVerticesPicture3[]={
+    -9.4f,pictureLowerBound,6.0f,
+    -9.4f,pictureLowerBound,4.0f,
+    -9.4f,pictureUpperBound,4.0f,
+    -9.4f,pictureUpperBound,6.0f
+};
+float geomVerticesPicture4[]={
+    6.0f,pictureLowerBound,-9.4f,
+    4.0f,pictureLowerBound,-9.4f,
+    4.0f,pictureUpperBound,-9.4f,
+    6.0f,pictureUpperBound,-9.4f
+};
+float geomVerticesPicture5[]={
+    6.0f,pictureLowerBound,9.4f,
+    4.0f,pictureLowerBound,9.4f,
+    4.0f,pictureUpperBound,9.4f,
+    6.0f,pictureUpperBound,9.4f
+};
+float geomVerticesPicture6[]={
+    -6.0f,pictureLowerBound,-9.4f,
+    -4.0f,pictureLowerBound,-9.4f,
+    -4.0f,pictureUpperBound,-9.4f,
+    -6.0f,pictureUpperBound,-9.4f
+};
+float geomVerticesPicture7[]={
+    -6.0f,pictureLowerBound,9.4f,
+    -4.0f,pictureLowerBound,9.4f,
+    -4.0f,pictureUpperBound,9.4f,
+    -6.0f,pictureUpperBound,9.4f
+};
+
 float geomVerticesDoorBarUp[]={
         -6.5f,barHeight,0.5f,
         -6.5f,height,0.5f,
@@ -571,6 +623,79 @@ int geomVertexFloorCount = 4;
 
 //glColor3d(0, 0.5, 0.3); // kolor rysowania
 
+//OBRAZ NUMER 0
+//glBindTexture(GL_TEXTURE_2D,tex[0]);
+glEnableClientState(GL_VERTEX_ARRAY);
+//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture0);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture0);
+glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//OBRAZ NUMER 1
+//glBindTexture(GL_TEXTURE_2D,tex[0]);
+glEnableClientState(GL_VERTEX_ARRAY);
+//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture1);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture1);
+glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//OBRAZ NUMER 2
+//glBindTexture(GL_TEXTURE_2D,tex[0]);
+glEnableClientState(GL_VERTEX_ARRAY);
+//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture2);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture2);
+glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//OBRAZ NUMER 3
+//glBindTexture(GL_TEXTURE_2D,tex[0]);
+glEnableClientState(GL_VERTEX_ARRAY);
+//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture3);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture3);
+glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//OBRAZ NUMER 4
+//glBindTexture(GL_TEXTURE_2D,tex[0]);
+glEnableClientState(GL_VERTEX_ARRAY);
+//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture4);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture4);
+glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//OBRAZ NUMER 5
+//glBindTexture(GL_TEXTURE_2D,tex[0]);
+glEnableClientState(GL_VERTEX_ARRAY);
+//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture5);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture5);
+glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//OBRAZ NUMER 6
+//glBindTexture(GL_TEXTURE_2D,tex[0]);
+glEnableClientState(GL_VERTEX_ARRAY);
+//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture6);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture6);
+glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//OBRAZ NUMER 7
+//glBindTexture(GL_TEXTURE_2D,tex[0]);
+glEnableClientState(GL_VERTEX_ARRAY);
+//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture7);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture7);
+glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
+glDisableClientState(GL_VERTEX_ARRAY);
+//glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
 //ŚCIANY GŁÓWNE
 glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
@@ -706,7 +831,7 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 
-	window = glfwCreateWindow(800, 800, "Muzeum", NULL, NULL);  //Utwórz okno 500x500 o tytule "OpenGL" i kontekst OpenGL.
+	window = glfwCreateWindow(1000, 1000, "Muzeum", NULL, NULL);  //Utwórz okno 500x500 o tytule "OpenGL" i kontekst OpenGL.
 
 	if (!window) //Jeżeli okna nie udało się utworzyć, to zamknij program
 	{
