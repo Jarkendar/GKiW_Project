@@ -712,7 +712,7 @@ glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 //OBRAZ NUMER 3
 glBindTexture(GL_TEXTURE_2D,tex[6]);
 glEnableClientState(GL_VERTEX_ARRAY);
-//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture3);
 glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture3);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
