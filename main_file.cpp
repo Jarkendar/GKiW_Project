@@ -380,56 +380,56 @@ void drawScene(GLFWwindow* window, float angle) {
 //    Models::torus.drawSolid();
 
     M = mat4(1.0f);
-    M = translate(M, vec3(0.0f,-3.0f,0.0f));
+    M = translate(M, vec3(-0.5f,-3.0f,-0.5f));
     glLoadMatrixf(glm::value_ptr(V*M));
 
 float geomVerticesPicture0[]={
-    9.4f,pictureLowerBound,-6.0f,
-    9.4f,pictureLowerBound,-4.0f,
-    9.4f,pictureUpperBound,-4.0f,
-    9.4f,pictureUpperBound,-6.0f
+    9.9f,pictureLowerBound,-6.0f,
+    9.9f,pictureLowerBound,-4.0f,
+    9.9f,pictureUpperBound,-4.0f,
+    9.9f,pictureUpperBound,-6.0f
 };
 float geomVerticesPicture1[]={
-    9.4f,pictureLowerBound,6.0f,
-    9.4f,pictureLowerBound,4.0f,
-    9.4f,pictureUpperBound,4.0f,
-    9.4f,pictureUpperBound,6.0f
+    9.9f,pictureLowerBound,6.0f,
+    9.9f,pictureLowerBound,4.0f,
+    9.9f,pictureUpperBound,4.0f,
+    9.9f,pictureUpperBound,6.0f
 };
 float geomVerticesPicture2[]={
-    -9.4f,pictureLowerBound,-6.0f,
-    -9.4f,pictureLowerBound,-4.0f,
-    -9.4f,pictureUpperBound,-4.0f,
-    -9.4f,pictureUpperBound,-6.0f
+    -9.9f,pictureLowerBound,-6.0f,
+    -9.9f,pictureLowerBound,-4.0f,
+    -9.9f,pictureUpperBound,-4.0f,
+    -9.9f,pictureUpperBound,-6.0f
 };
 float geomVerticesPicture3[]={
-    -9.4f,pictureLowerBound,6.0f,
-    -9.4f,pictureLowerBound,4.0f,
-    -9.4f,pictureUpperBound,4.0f,
-    -9.4f,pictureUpperBound,6.0f
+    -9.9f,pictureLowerBound,6.0f,
+    -9.9f,pictureLowerBound,4.0f,
+    -9.9f,pictureUpperBound,4.0f,
+    -9.9f,pictureUpperBound,6.0f
 };
 float geomVerticesPicture4[]={
-    6.0f,pictureLowerBound,-9.4f,
-    4.0f,pictureLowerBound,-9.4f,
-    4.0f,pictureUpperBound,-9.4f,
-    6.0f,pictureUpperBound,-9.4f
+    6.0f,pictureLowerBound,-9.9f,
+    4.0f,pictureLowerBound,-9.9f,
+    4.0f,pictureUpperBound,-9.9f,
+    6.0f,pictureUpperBound,-9.9f
 };
 float geomVerticesPicture5[]={
-    6.0f,pictureLowerBound,9.4f,
-    4.0f,pictureLowerBound,9.4f,
-    4.0f,pictureUpperBound,9.4f,
-    6.0f,pictureUpperBound,9.4f
+    6.0f,pictureLowerBound,9.9f,
+    4.0f,pictureLowerBound,9.9f,
+    4.0f,pictureUpperBound,9.9f,
+    6.0f,pictureUpperBound,9.9f
 };
 float geomVerticesPicture6[]={
-    -6.0f,pictureLowerBound,-9.4f,
-    -4.0f,pictureLowerBound,-9.4f,
-    -4.0f,pictureUpperBound,-9.4f,
-    -6.0f,pictureUpperBound,-9.4f
+    -6.0f,pictureLowerBound,-9.9f,
+    -4.0f,pictureLowerBound,-9.9f,
+    -4.0f,pictureUpperBound,-9.9f,
+    -6.0f,pictureUpperBound,-9.9f
 };
 float geomVerticesPicture7[]={
-    -6.0f,pictureLowerBound,9.4f,
-    -4.0f,pictureLowerBound,9.4f,
-    -4.0f,pictureUpperBound,9.4f,
-    -6.0f,pictureUpperBound,9.4f
+    -6.0f,pictureLowerBound,9.9f,
+    -4.0f,pictureLowerBound,9.9f,
+    -4.0f,pictureUpperBound,9.9f,
+    -6.0f,pictureUpperBound,9.9f
 };
 
 float geomVerticesDoorBarUp[]={
@@ -559,8 +559,8 @@ float geomVerticesWallsVerticalInside[]={
         -3.5f,0.0f,-0.5f // sciana lewa
 };
 float geomVerticesWallsLeftOutsite[]={
-        0.5f,0.0f,-9.5f,
-        0.5f,height,-9.5f,
+        0.5f,0.0f,-10.0f,
+        0.5f,height,-10.0f,
         0.5f,height,-6.5f,
         0.5f,0.0f,-6.5f, // sciana przod
 
@@ -571,22 +571,22 @@ float geomVerticesWallsLeftOutsite[]={
 
         -0.5f,0.0f,-6.5f,
         -0.5f,height,-6.5f,
-        -0.5f,height,-9.5f,
-        -0.5f,0.0f,-9.5f, // sciana tyl
+        -0.5f,height,-10.0f,
+        -0.5f,0.0f,-10.0f, // sciana tyl
 
-        -0.5f,0.0f,-9.5f,
-        -0.5f,height,-9.5f,
-        0.5f,height,-9.5f,
-        0.5f,0.0f,-9.5f // sciana lewa
+        -0.5f,0.0f,-10.0f,
+        -0.5f,height,-10.0f,
+        0.5f,height,-10.0f,
+        0.5f,0.0f,-10.0f // sciana lewa
 };
 float geomVerticesWallsUpOutsite[]={
-        9.5f,0.0f,-0.5f,
-        9.5f,height,-0.5f,
-        9.5f,height,0.5f,
-        9.5f,0.0f,0.5f, // sciana przod
+        10.0f,0.0f,-0.5f,
+        10.0f,height,-0.5f,
+        10.0f,height,0.5f,
+        10.0f,0.0f,0.5f, // sciana przod
 
-        9.5f,0.0f,0.5f,
-        9.5f,height,0.5f,
+        10.0f,0.0f,0.5f,
+        10.0f,height,0.5f,
         6.5f,height,0.5f,
         6.5f,0.0f,0.5f, // sciana prawa
 
@@ -597,12 +597,12 @@ float geomVerticesWallsUpOutsite[]={
 
         6.5f,0.0f,-0.5f,
         6.5f,height,-0.5f,
-        9.5f,height,-0.5f,
-        9.5f,0.0f,-0.5f // sciana lewa
+        10.0f,height,-0.5f,
+        10.0f,0.0f,-0.5f // sciana lewa
 };
 float geomVerticesWallsRightOutsite[]={
-        -0.5f,0.0f,9.5f,
-        -0.5f,height,9.5f,
+        -0.5f,0.0f,10.0f,
+        -0.5f,height,10.0f,
         -0.5f,height,6.5f,
         -0.5f,0.0f,6.5f, // sciana przod
 
@@ -613,22 +613,22 @@ float geomVerticesWallsRightOutsite[]={
 
         0.5f,0.0f,6.5f,
         0.5f,height,6.5f,
-        0.5f,height,9.5f,
-        0.5f,0.0f,9.5f, // sciana tyl
+        0.5f,height,10.0f,
+        0.5f,0.0f,10.0f, // sciana tyl
 
-        0.5f,0.0f,9.5f,
-        0.5f,height,9.5f,
-        -0.5f,height,9.5f,
-        -0.5f,0.0f,9.5f // sciana lewa
+        0.5f,0.0f,10.0f,
+        0.5f,height,10.0f,
+        -0.5f,height,10.0f,
+        -0.5f,0.0f,10.0f // sciana lewa
 };
 float geomVerticesWallsDownOutsite[]={
-        -9.5f,0.0f,0.5f,
-        -9.5f,height,0.5f,
-        -9.5f,height,-0.5f,
-        -9.5f,0.0f,-0.5f, // sciana przod
+        -10.0f,0.0f,0.5f,
+        -10.0f,height,0.5f,
+        -10.0f,height,-0.5f,
+        -10.0f,0.0f,-0.5f, // sciana przod
 
-        -9.5f,0.0f,-0.5f,
-        -9.5f,height,-0.5f,
+        -10.0f,0.0f,-0.5f,
+        -10.0f,height,-0.5f,
         -6.5f,height,-0.5f,
         -6.5f,0.0f,-0.5f, // sciana prawa
 
@@ -639,42 +639,42 @@ float geomVerticesWallsDownOutsite[]={
 
         -6.5f,0.0f,0.5f,
         -6.5f,height,0.5f,
-        -9.5f,height,0.5f,
-        -9.5f,0.0f,0.5f // sciana lewa
+        -10.0f,height,0.5f,
+        -10.0f,0.0f,0.5f // sciana lewa
 };
 float geomVerticesWalls[]={
-        -9.5f,0.0f,-9.5f,
-        -9.5f,height,-9.5f,
-        9.5f,height,-9.5f,
-        9.5f,0.0f,-9.5f, // sciana przod
+        -10.0f,0.0f,-10.0f,
+        -10.0f,height,-10.0f,
+        10.0f,height,-10.0f,
+        10.0f,0.0f,-10.0f, // sciana przod
 
-        9.5f,0.0f,-9.5f,
-        9.5f,height,-9.5f,
-        9.5f,height,9.5f,
-        9.5f,0.0f,9.5f, // sciana prawa
+        10.0f,0.0f,-10.0f,
+        10.0f,height,-10.0f,
+        10.0f,height,10.0f,
+        10.0f,0.0f,10.0f, // sciana prawa
 
-        9.5f,0.0f,9.5f,
-        9.5f,height,9.5f,
-        -9.5f,height,9.5f,
-        -9.5f,0.0f,9.5f, // sciana tyl
+        10.0f,0.0f,10.0f,
+        10.0f,height,10.0f,
+        -10.0f,height,10.0f,
+        -10.0f,0.0f,10.0f, // sciana tyl
 
-        -9.5f,0.0f,9.5f,
-        -9.5f,height,9.5f,
-        -9.5f,height,-9.5f,
-        -9.5f,0.0f,-9.5f // sciana lewa
+        -10.0f,0.0f,10.0f,
+        -10.0f,height,10.0f,
+        -10.0f,height,-10.0f,
+        -10.0f,0.0f,-10.0f // sciana lewa
 };
 float geomVerticesFloor[]={
-        -9.5f,0.0f,-9.5f,
-        9.5f,0.0f,-9.5f,
-        9.5f,0.0f,9.5f,
-        -9.5f,0.0f,9.5f // podloga
+        -10.0f,0.0f,-10.0f,
+        10.0f,0.0f,-10.0f,
+        10.0f,0.0f,10.0f,
+        -10.0f,0.0f,10.0f // podloga
 };
 
 float geomVerticesCeiling[]={
-        -9.5f,height,-9.5f,
-        9.5f,height,-9.5f,
-        9.5f,height,9.5f,
-        -9.5f,height,9.5f // sufit
+        -10.0f,height,-10.0f,
+        10.0f,height,-10.0f,
+        10.0f,height,10.0f,
+        -10.0f,height,10.0f // sufit
 };
 float geomTexCoords[]={
 0,1, 1,1, 1,0, 0,0
@@ -867,6 +867,7 @@ glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 //SUFIT
 glBindTexture(GL_TEXTURE_2D,tex[2]);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_REPEAT);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0,  geomVerticesCeiling);
