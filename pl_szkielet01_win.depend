@@ -4085,7 +4085,7 @@
 	<iostream>
 	"lodepng.h"
 
-1496081941 source:c:\users\jarek\desktop\grafika\gkiw_project\main_file.cpp
+1496331029 source:c:\users\jarek\desktop\grafika\gkiw_project\main_file.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>

@@ -73,15 +73,15 @@ int macierzRuchu[20][20] = {{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},//0
                             {8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8}};//19
 
 float speed=3.14;
-int x_camera_position = -5; //startowa pozycja X
-int z_camera_position = 6; //startowa pozycja Z
-float ANGLE = 0;
+float x_camera_position = -5; //startowa pozycja X
+float z_camera_position = 6; //startowa pozycja Z
+double ANGLE = 0;
 float height = 3.0f;
 float barHeight = 2.0f;
 float pictureLowerBound = 0.5f;
 float pictureUpperBound = 2.5f;
 
-void drawMatrix(){
+void drawMatrix(){//minimapa w konsoli
     for(int i = 19; i >= 0; i--){
         for(int j = 0; j < 20; j++){
             switch(macierzRuchu[i][j]){
@@ -101,9 +101,7 @@ void drawMatrix(){
         }
         std::cout<<"\n";
     }
-
     std::cout<<"Pozycja gracza : x="<<x_camera_position<<" z="<<z_camera_position<<"\n"<<"\n";
-
 }
 
 int mySinus(){
@@ -125,65 +123,139 @@ int myCosinus(){
 }
 
 void displayTrigonometrics(){
-    std::cout<<"cos"<<ANGLE<<" "<<cos(ANGLE)<<"\n";
-    std::cout<<"sin"<<ANGLE<<" "<<mySinus()<<"\n";
+    std::cout<<"cos"<<ANGLE<<" "<<cos(ANGLE*PI/180.0)<<"\n";
+    std::cout<<"sin"<<ANGLE<<" "<<sin(ANGLE*PI/180.0)<<"\n";
 }
 
-int matrixPosition(int realPosition){
-    return realPosition+9;
+int matrixPosition(float realPosition){
+    return (int)realPosition+9;
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
     if (action == GLFW_PRESS) {//pojedyńcze naciśnięcie klawisza
         if (key == GLFW_KEY_LEFT){
             if( ANGLE == 0.0){
-                ANGLE = 270.0;
+                ANGLE = 350.0;
             }else{
-                ANGLE -= 90.0;
+                ANGLE -= 10.0;
             }
         }
         if (key == GLFW_KEY_RIGHT){
-            if( ANGLE == 270.0){
-                ANGLE = 0.0;
+            if( ANGLE == 360.0){
+                ANGLE = 10.0;
             }else{
-                ANGLE += 90.0;
+                ANGLE += 10.0;
             }
         }
         if (key == GLFW_KEY_UP){
-            if (ANGLE == 0 || ANGLE == 180){
-                if (macierzRuchu[matrixPosition(x_camera_position-myCosinus())][matrixPosition(z_camera_position)] == 0){
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;//zwolnienie starej pozycji
-                    x_camera_position += -myCosinus();
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;//zajęcie nowej pozycji
-                }
-            }else{
-                if (macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position-mySinus())] == 0){
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-                    z_camera_position += -mySinus();
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
+            std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]<< "\n";
+            if(macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]==0){
+                x_camera_position += -(float)cos(ANGLE*PI/180.0);
+                std::cout<<"ruchx\n";
+                if(x_camera_position > 9.0f){
+                    x_camera_position = 9.0f;
+                }else if(x_camera_position < -9.0f){
+                    x_camera_position = -9.0f;
                 }
             }
+            if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position-(float)sin(ANGLE*PI/180.0)))]==0){
+                z_camera_position += -(float)sin(ANGLE*PI/180.0);
+                std::cout<<"ruchz\n";
+                if(z_camera_position > 9.0f){
+                    z_camera_position = 9.0f;
+                }else if(z_camera_position < -9.0f){
+                    z_camera_position = -9.0f;
+                }
+            }
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
         }
         if (key == GLFW_KEY_DOWN){
-            if (ANGLE == 0 || ANGLE == 180){
-                if (macierzRuchu[matrixPosition(x_camera_position+myCosinus())][matrixPosition(z_camera_position)] == 0){
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-                    x_camera_position -= -myCosinus();
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
+            std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]<< "\n";
+            if(macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]==0){
+                x_camera_position += (float)cos(ANGLE*PI/180.0);
+                std::cout<<"ruchx\n";
+                if(x_camera_position > 9.0f){
+                    x_camera_position = 9.0f;
+                }else if(x_camera_position < -9.0f){
+                    x_camera_position = -9.0f;
                 }
+            }
+            if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position+(float)sin(ANGLE*PI/180.0)))]==0){
+                z_camera_position += (float)sin(ANGLE*PI/180.0);
+                std::cout<<"ruchz\n";
+                if(z_camera_position > 9.0f){
+                    z_camera_position = 9.0f;
+                }else if(z_camera_position < -9.0f){
+                    z_camera_position = -9.0f;
+                }
+            }
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+        }
+    }
+    if(action == GLFW_REPEAT){
+        if (key == GLFW_KEY_LEFT){
+            if( ANGLE == 0.0){
+                ANGLE = 350.0;
             }else{
-                if (macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position+mySinus())] == 0){
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-                    z_camera_position -= -mySinus();
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
-                }
-
+                ANGLE -= 2.0;
             }
         }
+        if (key == GLFW_KEY_RIGHT){
+            if( ANGLE == 360.0){
+                ANGLE = 10.0;
+            }else{
+                ANGLE += 2.0;
+            }
         }
-        drawMatrix();
-        displayTrigonometrics();
-
+        if (key == GLFW_KEY_UP){
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
+            std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]<< "\n";
+            if(macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]==0){
+                x_camera_position += -(float)cos(ANGLE*PI/180.0)*0.2;
+                std::cout<<"ruchx\n";
+                if(x_camera_position > 9.0f){
+                    x_camera_position = 9.0f;
+                }else if(x_camera_position < -9.0f){
+                    x_camera_position = -9.0f;
+                }
+            }
+            if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position-(float)sin(ANGLE*PI/180.0)*0.2))]==0){
+                z_camera_position += -(float)sin(ANGLE*PI/180.0)*0.2;
+                std::cout<<"ruchz\n";
+                if(z_camera_position > 9.0f){
+                    z_camera_position = 9.0f;
+                }else if(z_camera_position < -9.0f){
+                    z_camera_position = -9.0f;
+                }
+            }
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+        }
+        if (key == GLFW_KEY_DOWN){
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
+            std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]<< "\n";
+            if(macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]==0){
+                x_camera_position += (float)cos(ANGLE*PI/180.0)*0.2;
+                std::cout<<"ruchx\n";
+                if(x_camera_position > 9.0f){
+                    x_camera_position = 9.0f;
+                }else if(x_camera_position < -9.0f){
+                    x_camera_position = -9.0f;
+                }
+            }
+            if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position+(float)sin(ANGLE*PI/180.0)*0.2))]==0){
+                z_camera_position += (float)sin(ANGLE*PI/180.0)*0.2;
+                std::cout<<"ruchz\n";
+                if(z_camera_position > 9.0f){
+                    z_camera_position = 9.0f;
+                }else if(z_camera_position < -9.0f){
+                    z_camera_position = -9.0f;
+                }
+            }
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+        }
+    }
 
 /*if (action == GLFW_RELEASE)
 {
