@@ -73,15 +73,15 @@ int macierzRuchu[20][20] = {{8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8},//0
                             {8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8}};//19
 
 float speed=3.14;
-int x_camera_position = -5; //startowa pozycja X
-int z_camera_position = 6; //startowa pozycja Z
-float ANGLE = 0;
+float x_camera_position = -5; //startowa pozycja X
+float z_camera_position = 6; //startowa pozycja Z
+double ANGLE = 0;
 float height = 3.0f;
 float barHeight = 2.0f;
 float pictureLowerBound = 0.5f;
 float pictureUpperBound = 2.5f;
 
-void drawMatrix(){
+void drawMatrix(){//minimapa w konsoli
     for(int i = 19; i >= 0; i--){
         for(int j = 0; j < 20; j++){
             switch(macierzRuchu[i][j]){
@@ -101,9 +101,7 @@ void drawMatrix(){
         }
         std::cout<<"\n";
     }
-
     std::cout<<"Pozycja gracza : x="<<x_camera_position<<" z="<<z_camera_position<<"\n"<<"\n";
-
 }
 
 int mySinus(){
@@ -125,65 +123,139 @@ int myCosinus(){
 }
 
 void displayTrigonometrics(){
-    std::cout<<"cos"<<ANGLE<<" "<<cos(ANGLE)<<"\n";
-    std::cout<<"sin"<<ANGLE<<" "<<mySinus()<<"\n";
+    std::cout<<"cos"<<ANGLE<<" "<<cos(ANGLE*PI/180.0)<<"\n";
+    std::cout<<"sin"<<ANGLE<<" "<<sin(ANGLE*PI/180.0)<<"\n";
 }
 
-int matrixPosition(int realPosition){
-    return realPosition+9;
+int matrixPosition(float realPosition){
+    return (int)realPosition+9;
 }
 
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods){
     if (action == GLFW_PRESS) {//pojedyńcze naciśnięcie klawisza
         if (key == GLFW_KEY_LEFT){
             if( ANGLE == 0.0){
-                ANGLE = 270.0;
+                ANGLE = 350.0;
             }else{
-                ANGLE -= 90.0;
+                ANGLE -= 10.0;
             }
         }
         if (key == GLFW_KEY_RIGHT){
-            if( ANGLE == 270.0){
-                ANGLE = 0.0;
+            if( ANGLE == 360.0){
+                ANGLE = 10.0;
             }else{
-                ANGLE += 90.0;
+                ANGLE += 10.0;
             }
         }
         if (key == GLFW_KEY_UP){
-            if (ANGLE == 0 || ANGLE == 180){
-                if (macierzRuchu[matrixPosition(x_camera_position-myCosinus())][matrixPosition(z_camera_position)] == 0){
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;//zwolnienie starej pozycji
-                    x_camera_position += -myCosinus();
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;//zajęcie nowej pozycji
-                }
-            }else{
-                if (macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position-mySinus())] == 0){
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-                    z_camera_position += -mySinus();
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
+            std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]<< "\n";
+            if(macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]==0){
+                x_camera_position += -(float)cos(ANGLE*PI/180.0);
+                std::cout<<"ruchx\n";
+                if(x_camera_position > 9.0f){
+                    x_camera_position = 9.0f;
+                }else if(x_camera_position < -9.0f){
+                    x_camera_position = -9.0f;
                 }
             }
+            if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position-(float)sin(ANGLE*PI/180.0)))]==0){
+                z_camera_position += -(float)sin(ANGLE*PI/180.0);
+                std::cout<<"ruchz\n";
+                if(z_camera_position > 9.0f){
+                    z_camera_position = 9.0f;
+                }else if(z_camera_position < -9.0f){
+                    z_camera_position = -9.0f;
+                }
+            }
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
         }
         if (key == GLFW_KEY_DOWN){
-            if (ANGLE == 0 || ANGLE == 180){
-                if (macierzRuchu[matrixPosition(x_camera_position+myCosinus())][matrixPosition(z_camera_position)] == 0){
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-                    x_camera_position -= -myCosinus();
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
+            std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]<< "\n";
+            if(macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]==0){
+                x_camera_position += (float)cos(ANGLE*PI/180.0);
+                std::cout<<"ruchx\n";
+                if(x_camera_position > 9.0f){
+                    x_camera_position = 9.0f;
+                }else if(x_camera_position < -9.0f){
+                    x_camera_position = -9.0f;
                 }
+            }
+            if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position+(float)sin(ANGLE*PI/180.0)))]==0){
+                z_camera_position += (float)sin(ANGLE*PI/180.0);
+                std::cout<<"ruchz\n";
+                if(z_camera_position > 9.0f){
+                    z_camera_position = 9.0f;
+                }else if(z_camera_position < -9.0f){
+                    z_camera_position = -9.0f;
+                }
+            }
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+        }
+    }
+    if(action == GLFW_REPEAT){
+        if (key == GLFW_KEY_LEFT){
+            if( ANGLE == 0.0){
+                ANGLE = 350.0;
             }else{
-                if (macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position+mySinus())] == 0){
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-                    z_camera_position -= -mySinus();
-                    macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
-                }
-
+                ANGLE -= 2.0;
             }
         }
+        if (key == GLFW_KEY_RIGHT){
+            if( ANGLE == 360.0){
+                ANGLE = 10.0;
+            }else{
+                ANGLE += 2.0;
+            }
         }
-        drawMatrix();
-        displayTrigonometrics();
-
+        if (key == GLFW_KEY_UP){
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
+            std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]<< "\n";
+            if(macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]==0){
+                x_camera_position += -(float)cos(ANGLE*PI/180.0)*0.2;
+                std::cout<<"ruchx\n";
+                if(x_camera_position > 9.0f){
+                    x_camera_position = 9.0f;
+                }else if(x_camera_position < -9.0f){
+                    x_camera_position = -9.0f;
+                }
+            }
+            if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position-(float)sin(ANGLE*PI/180.0)*0.2))]==0){
+                z_camera_position += -(float)sin(ANGLE*PI/180.0)*0.2;
+                std::cout<<"ruchz\n";
+                if(z_camera_position > 9.0f){
+                    z_camera_position = 9.0f;
+                }else if(z_camera_position < -9.0f){
+                    z_camera_position = -9.0f;
+                }
+            }
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+        }
+        if (key == GLFW_KEY_DOWN){
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
+            std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]<< "\n";
+            if(macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]==0){
+                x_camera_position += (float)cos(ANGLE*PI/180.0)*0.2;
+                std::cout<<"ruchx\n";
+                if(x_camera_position > 9.0f){
+                    x_camera_position = 9.0f;
+                }else if(x_camera_position < -9.0f){
+                    x_camera_position = -9.0f;
+                }
+            }
+            if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position+(float)sin(ANGLE*PI/180.0)*0.2))]==0){
+                z_camera_position += (float)sin(ANGLE*PI/180.0)*0.2;
+                std::cout<<"ruchz\n";
+                if(z_camera_position > 9.0f){
+                    z_camera_position = 9.0f;
+                }else if(z_camera_position < -9.0f){
+                    z_camera_position = -9.0f;
+                }
+            }
+            macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
+        }
+    }
 
 /*if (action == GLFW_RELEASE)
 {
@@ -380,56 +452,56 @@ void drawScene(GLFWwindow* window, float angle) {
 //    Models::torus.drawSolid();
 
     M = mat4(1.0f);
-    M = translate(M, vec3(0.0f,-3.0f,0.0f));
+    M = translate(M, vec3(-0.5f,-3.0f,-0.5f));
     glLoadMatrixf(glm::value_ptr(V*M));
 
 float geomVerticesPicture0[]={
-    9.4f,pictureLowerBound,-6.0f,
-    9.4f,pictureLowerBound,-4.0f,
-    9.4f,pictureUpperBound,-4.0f,
-    9.4f,pictureUpperBound,-6.0f
+    9.9f,pictureLowerBound,-6.0f,
+    9.9f,pictureLowerBound,-4.0f,
+    9.9f,pictureUpperBound,-4.0f,
+    9.9f,pictureUpperBound,-6.0f
 };
 float geomVerticesPicture1[]={
-    9.4f,pictureLowerBound,6.0f,
-    9.4f,pictureLowerBound,4.0f,
-    9.4f,pictureUpperBound,4.0f,
-    9.4f,pictureUpperBound,6.0f
+    9.9f,pictureLowerBound,6.0f,
+    9.9f,pictureLowerBound,4.0f,
+    9.9f,pictureUpperBound,4.0f,
+    9.9f,pictureUpperBound,6.0f
 };
 float geomVerticesPicture2[]={
-    -9.4f,pictureLowerBound,-6.0f,
-    -9.4f,pictureLowerBound,-4.0f,
-    -9.4f,pictureUpperBound,-4.0f,
-    -9.4f,pictureUpperBound,-6.0f
+    -9.9f,pictureLowerBound,-6.0f,
+    -9.9f,pictureLowerBound,-4.0f,
+    -9.9f,pictureUpperBound,-4.0f,
+    -9.9f,pictureUpperBound,-6.0f
 };
 float geomVerticesPicture3[]={
-    -9.4f,pictureLowerBound,6.0f,
-    -9.4f,pictureLowerBound,4.0f,
-    -9.4f,pictureUpperBound,4.0f,
-    -9.4f,pictureUpperBound,6.0f
+    -9.9f,pictureLowerBound,6.0f,
+    -9.9f,pictureLowerBound,4.0f,
+    -9.9f,pictureUpperBound,4.0f,
+    -9.9f,pictureUpperBound,6.0f
 };
 float geomVerticesPicture4[]={
-    6.0f,pictureLowerBound,-9.4f,
-    4.0f,pictureLowerBound,-9.4f,
-    4.0f,pictureUpperBound,-9.4f,
-    6.0f,pictureUpperBound,-9.4f
+    6.0f,pictureLowerBound,-9.9f,
+    4.0f,pictureLowerBound,-9.9f,
+    4.0f,pictureUpperBound,-9.9f,
+    6.0f,pictureUpperBound,-9.9f
 };
 float geomVerticesPicture5[]={
-    6.0f,pictureLowerBound,9.4f,
-    4.0f,pictureLowerBound,9.4f,
-    4.0f,pictureUpperBound,9.4f,
-    6.0f,pictureUpperBound,9.4f
+    6.0f,pictureLowerBound,9.9f,
+    4.0f,pictureLowerBound,9.9f,
+    4.0f,pictureUpperBound,9.9f,
+    6.0f,pictureUpperBound,9.9f
 };
 float geomVerticesPicture6[]={
-    -6.0f,pictureLowerBound,-9.4f,
-    -4.0f,pictureLowerBound,-9.4f,
-    -4.0f,pictureUpperBound,-9.4f,
-    -6.0f,pictureUpperBound,-9.4f
+    -6.0f,pictureLowerBound,-9.9f,
+    -4.0f,pictureLowerBound,-9.9f,
+    -4.0f,pictureUpperBound,-9.9f,
+    -6.0f,pictureUpperBound,-9.9f
 };
 float geomVerticesPicture7[]={
-    -6.0f,pictureLowerBound,9.4f,
-    -4.0f,pictureLowerBound,9.4f,
-    -4.0f,pictureUpperBound,9.4f,
-    -6.0f,pictureUpperBound,9.4f
+    -6.0f,pictureLowerBound,9.9f,
+    -4.0f,pictureLowerBound,9.9f,
+    -4.0f,pictureUpperBound,9.9f,
+    -6.0f,pictureUpperBound,9.9f
 };
 
 float geomVerticesDoorBarUp[]={
@@ -559,8 +631,8 @@ float geomVerticesWallsVerticalInside[]={
         -3.5f,0.0f,-0.5f // sciana lewa
 };
 float geomVerticesWallsLeftOutsite[]={
-        0.5f,0.0f,-9.5f,
-        0.5f,height,-9.5f,
+        0.5f,0.0f,-10.0f,
+        0.5f,height,-10.0f,
         0.5f,height,-6.5f,
         0.5f,0.0f,-6.5f, // sciana przod
 
@@ -571,22 +643,22 @@ float geomVerticesWallsLeftOutsite[]={
 
         -0.5f,0.0f,-6.5f,
         -0.5f,height,-6.5f,
-        -0.5f,height,-9.5f,
-        -0.5f,0.0f,-9.5f, // sciana tyl
+        -0.5f,height,-10.0f,
+        -0.5f,0.0f,-10.0f, // sciana tyl
 
-        -0.5f,0.0f,-9.5f,
-        -0.5f,height,-9.5f,
-        0.5f,height,-9.5f,
-        0.5f,0.0f,-9.5f // sciana lewa
+        -0.5f,0.0f,-10.0f,
+        -0.5f,height,-10.0f,
+        0.5f,height,-10.0f,
+        0.5f,0.0f,-10.0f // sciana lewa
 };
 float geomVerticesWallsUpOutsite[]={
-        9.5f,0.0f,-0.5f,
-        9.5f,height,-0.5f,
-        9.5f,height,0.5f,
-        9.5f,0.0f,0.5f, // sciana przod
+        10.0f,0.0f,-0.5f,
+        10.0f,height,-0.5f,
+        10.0f,height,0.5f,
+        10.0f,0.0f,0.5f, // sciana przod
 
-        9.5f,0.0f,0.5f,
-        9.5f,height,0.5f,
+        10.0f,0.0f,0.5f,
+        10.0f,height,0.5f,
         6.5f,height,0.5f,
         6.5f,0.0f,0.5f, // sciana prawa
 
@@ -597,12 +669,12 @@ float geomVerticesWallsUpOutsite[]={
 
         6.5f,0.0f,-0.5f,
         6.5f,height,-0.5f,
-        9.5f,height,-0.5f,
-        9.5f,0.0f,-0.5f // sciana lewa
+        10.0f,height,-0.5f,
+        10.0f,0.0f,-0.5f // sciana lewa
 };
 float geomVerticesWallsRightOutsite[]={
-        -0.5f,0.0f,9.5f,
-        -0.5f,height,9.5f,
+        -0.5f,0.0f,10.0f,
+        -0.5f,height,10.0f,
         -0.5f,height,6.5f,
         -0.5f,0.0f,6.5f, // sciana przod
 
@@ -613,22 +685,22 @@ float geomVerticesWallsRightOutsite[]={
 
         0.5f,0.0f,6.5f,
         0.5f,height,6.5f,
-        0.5f,height,9.5f,
-        0.5f,0.0f,9.5f, // sciana tyl
+        0.5f,height,10.0f,
+        0.5f,0.0f,10.0f, // sciana tyl
 
-        0.5f,0.0f,9.5f,
-        0.5f,height,9.5f,
-        -0.5f,height,9.5f,
-        -0.5f,0.0f,9.5f // sciana lewa
+        0.5f,0.0f,10.0f,
+        0.5f,height,10.0f,
+        -0.5f,height,10.0f,
+        -0.5f,0.0f,10.0f // sciana lewa
 };
 float geomVerticesWallsDownOutsite[]={
-        -9.5f,0.0f,0.5f,
-        -9.5f,height,0.5f,
-        -9.5f,height,-0.5f,
-        -9.5f,0.0f,-0.5f, // sciana przod
+        -10.0f,0.0f,0.5f,
+        -10.0f,height,0.5f,
+        -10.0f,height,-0.5f,
+        -10.0f,0.0f,-0.5f, // sciana przod
 
-        -9.5f,0.0f,-0.5f,
-        -9.5f,height,-0.5f,
+        -10.0f,0.0f,-0.5f,
+        -10.0f,height,-0.5f,
         -6.5f,height,-0.5f,
         -6.5f,0.0f,-0.5f, // sciana prawa
 
@@ -639,42 +711,52 @@ float geomVerticesWallsDownOutsite[]={
 
         -6.5f,0.0f,0.5f,
         -6.5f,height,0.5f,
-        -9.5f,height,0.5f,
-        -9.5f,0.0f,0.5f // sciana lewa
+        -10.0f,height,0.5f,
+        -10.0f,0.0f,0.5f // sciana lewa
 };
 float geomVerticesWalls[]={
-        -9.5f,0.0f,-9.5f,
-        -9.5f,height,-9.5f,
-        9.5f,height,-9.5f,
-        9.5f,0.0f,-9.5f, // sciana przod
+        -10.0f,0.0f,-10.0f,
+        -10.0f,height,-10.0f,
+        10.0f,height,-10.0f,
+        10.0f,0.0f,-10.0f, // sciana przod
 
-        9.5f,0.0f,-9.5f,
-        9.5f,height,-9.5f,
-        9.5f,height,9.5f,
-        9.5f,0.0f,9.5f, // sciana prawa
+        10.0f,0.0f,-10.0f,
+        10.0f,height,-10.0f,
+        10.0f,height,10.0f,
+        10.0f,0.0f,10.0f, // sciana prawa
 
-        9.5f,0.0f,9.5f,
-        9.5f,height,9.5f,
-        -9.5f,height,9.5f,
-        -9.5f,0.0f,9.5f, // sciana tyl
+        10.0f,0.0f,10.0f,
+        10.0f,height,10.0f,
+        -10.0f,height,10.0f,
+        -10.0f,0.0f,10.0f, // sciana tyl
 
-        -9.5f,0.0f,9.5f,
-        -9.5f,height,9.5f,
-        -9.5f,height,-9.5f,
-        -9.5f,0.0f,-9.5f // sciana lewa
+        -10.0f,0.0f,10.0f,
+        -10.0f,height,10.0f,
+        -10.0f,height,-10.0f,
+        -10.0f,0.0f,-10.0f // sciana lewa
 };
 float geomVerticesFloor[]={
-        -9.5f,0.0f,-9.5f,
-        9.5f,0.0f,-9.5f,
-        9.5f,0.0f,9.5f,
-        -9.5f,0.0f,9.5f // podloga
+        -10.0f,0.0f,-10.0f,
+        10.0f,0.0f,-10.0f,
+        10.0f,0.0f,10.0f,
+        -10.0f,0.0f,10.0f // podloga
 };
 
 float geomVerticesCeiling[]={
-        -9.5f,height,-9.5f,
-        9.5f,height,-9.5f,
-        9.5f,height,9.5f,
-        -9.5f,height,9.5f // sufit
+        -10.0f,height,-10.0f,
+        10.0f,height,-10.0f,
+        10.0f,height,10.0f,
+        -10.0f,height,10.0f // sufit
+};
+float geomTexCoords[]={
+0,1, 1,1, 1,0, 0,0
+};
+
+float geomTexWallCoords[]={
+0,1, 1,1, 1,0, 0,0,
+0,1, 1,1, 1,0, 0,0,
+0,1, 1,1, 1,0, 0,0,
+0,1, 1,1, 1,0, 0,0
 };
 
 int geomVertexWallsCount = 16;
@@ -687,7 +769,7 @@ glBindTexture(GL_TEXTURE_2D,tex[3]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture0);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture0);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -696,7 +778,7 @@ glBindTexture(GL_TEXTURE_2D,tex[4]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture1);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture1);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -705,7 +787,7 @@ glBindTexture(GL_TEXTURE_2D,tex[5]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture2);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture2);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -714,7 +796,7 @@ glBindTexture(GL_TEXTURE_2D,tex[6]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture3);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture3);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -723,7 +805,7 @@ glBindTexture(GL_TEXTURE_2D,tex[7]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture4);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture4);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -732,7 +814,7 @@ glBindTexture(GL_TEXTURE_2D,tex[8]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture5);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture5);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -741,7 +823,7 @@ glBindTexture(GL_TEXTURE_2D,tex[9]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture6);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture6);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -750,7 +832,7 @@ glBindTexture(GL_TEXTURE_2D,tex[10]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture7);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesPicture7);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -760,7 +842,7 @@ glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWalls);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWalls);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexWallCoords);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -769,7 +851,7 @@ glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsLeftOutsite);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsLeftOutsite);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexWallCoords);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -778,7 +860,7 @@ glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsRightOutsite);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsRightOutsite);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexWallCoords);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -787,7 +869,7 @@ glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsUpOutsite);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsUpOutsite);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexWallCoords);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -796,7 +878,7 @@ glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsDownOutsite);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsDownOutsite);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexWallCoords);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -805,7 +887,7 @@ glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsHorizontalInside);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsHorizontalInside);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexWallCoords);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -814,7 +896,7 @@ glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesWallsVerticalInside);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesWallsVerticalInside);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexWallCoords);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -823,7 +905,7 @@ glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesDoorBarLeft);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesDoorBarLeft);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexWallCoords);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -832,7 +914,7 @@ glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesDoorBarRight);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesDoorBarRight);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexWallCoords);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -841,7 +923,7 @@ glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesDoorBarUp);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesDoorBarUp);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexWallCoords);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -850,17 +932,18 @@ glBindTexture(GL_TEXTURE_2D,tex[1]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0, geomVerticesDoorBarDown);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesDoorBarDown);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexWallCoords);
 glDrawArrays(GL_QUADS,0,geomVertexWallsCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 //SUFIT
 glBindTexture(GL_TEXTURE_2D,tex[2]);
+glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_REPEAT);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0,  geomVerticesCeiling);
-glTexCoordPointer( 2, GL_FLOAT, 0,  geomVerticesCeiling);
+glTexCoordPointer( 2, GL_FLOAT, 0,  geomTexCoords);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -870,7 +953,7 @@ glBindTexture(GL_TEXTURE_2D,tex[0]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesFloor);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomVerticesFloor);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
