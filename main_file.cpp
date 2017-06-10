@@ -30,6 +30,7 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 #include "lodepng.h"
 #include "constants.h"
 #include "allmodels.h"
+#include <process.h>
 
 using namespace glm;
 
@@ -962,6 +963,16 @@ glDisableClientState(GL_TEXTURE_COORD_ARRAY);
     glfwSwapBuffers(window); // zawsze ostatnie
 }
 
+void __cdecl ThreadProc( void * Args )
+{
+    int g_Counter = 0;
+    while( true){
+         g_Counter++;
+         std::cout<<g_Counter<<"\n";
+    }
+    _endthread();
+}
+
 int main(void)
 {
 	GLFWwindow* window; //Wskaźnik na obiekt reprezentujący okno
@@ -994,6 +1005,9 @@ int main(void)
 
 	float angle=0;
     glfwSetTime(0);
+
+     _beginthread( ThreadProc, 0, NULL );
+
 	//Główna pętla
 	while (!glfwWindowShouldClose(window)) //Tak długo jak okno nie powinno zostać zamknięte
 	{
