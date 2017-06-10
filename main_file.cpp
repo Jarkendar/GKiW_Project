@@ -318,9 +318,8 @@ void initOpenGLProgram(GLFWwindow* window) {
 	error = lodepng::decode(image, width, height, "blue_marble.png");
 	glGenTextures(20,tex); // inicjacja 20 w tablicy
 	glBindTexture(GL_TEXTURE_2D, tex[0]); // wybranie uchwytu
-	glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE); // tworzy mipmapy - kilka wersji dla roznych odleglosci
 	glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glEnable(GL_TEXTURE_2D);
 
@@ -328,7 +327,6 @@ void initOpenGLProgram(GLFWwindow* window) {
     glBindTexture(GL_TEXTURE_2D, tex[1]); // wybor drugiego uchwytu
     image.clear();
     error = lodepng::decode(image, width, height, "walls.png");
-    glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
     glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -338,7 +336,6 @@ void initOpenGLProgram(GLFWwindow* window) {
     glBindTexture(GL_TEXTURE_2D, tex[2]);
     image.clear();
     error = lodepng::decode(image, width, height, "bricks.png");
-    glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
     glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
