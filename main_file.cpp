@@ -1008,6 +1008,8 @@ int main(void)
 	float angle=0;
     glfwSetTime(0);
 
+
+//WCZYTYWANIE WIERZCHOŁKÓW I WEKTORÓW NORMALNYCH MODELU
     std::vector < float > temp_vertices;
     std::vector < float > temp_uvs;
     std::vector < float > temp_normals;
@@ -1039,10 +1041,16 @@ int main(void)
         }
     }
 
-    for(int i =0; i<counter*3; i+=3){
-        std::cout<<temp_vertices[i]<<" "<<temp_vertices[i+1]<<" "<<temp_vertices[i+2]<<" "<<i<<"\n";
+    if(temp_normals.size() == 0){
+        for(int i = 0; i<temp_vertices.size()-1; i++){
+            temp_normals.push_back(0.0f);
+        }
     }
 
+//    for(int i =0; i<counter*3; i+=3){
+//        std::cout<<temp_vertices[i]<<" "<<temp_vertices[i+1]<<" "<<temp_vertices[i+2]<<" "<<i<<"\n";
+//    }
+//*********************************************************
 
     //ODPALENIE WĄTKU (funkcja wątku, rozmiar stosu, argumenty przekazane do wątku)
  //   _beginthread( ThreadProc, 0, NULL );
