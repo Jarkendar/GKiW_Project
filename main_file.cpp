@@ -256,7 +256,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
         }
     }
-
+    //drawMatrix();
 /*if (action == GLFW_RELEASE)
 {
     if (key == GLFW_KEY_RIGHT || key == GLFW_KEY_LEFT) speed = 0;
@@ -318,6 +318,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 	error = lodepng::decode(image, width, height, "blue_marble.png");
 	glGenTextures(20,tex); // inicjacja 20 w tablicy
 	glBindTexture(GL_TEXTURE_2D, tex[0]); // wybranie uchwytu
+	glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE); // tworzy mipmapy - kilka wersji dla roznych odleglosci
 	glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -327,6 +328,7 @@ void initOpenGLProgram(GLFWwindow* window) {
     glBindTexture(GL_TEXTURE_2D, tex[1]); // wybor drugiego uchwytu
     image.clear();
     error = lodepng::decode(image, width, height, "walls.png");
+    glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
     glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -336,6 +338,7 @@ void initOpenGLProgram(GLFWwindow* window) {
     glBindTexture(GL_TEXTURE_2D, tex[2]);
     image.clear();
     error = lodepng::decode(image, width, height, "bricks.png");
+    glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
     glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -748,15 +751,19 @@ float geomVerticesCeiling[]={
         10.0f,height,10.0f,
         -10.0f,height,10.0f // sufit
 };
-float geomTexCoords[]={
-0,1, 1,1, 1,0, 0,0
+float geomTexCoordsPictures[]={ // 1:1 dla obrazow
+    0,1, 1,1, 1,0, 0,0
 };
 
-float geomTexWallCoords[]={
-0,1, 1,1, 1,0, 0,0,
-0,1, 1,1, 1,0, 0,0,
-0,1, 1,1, 1,0, 0,0,
-0,1, 1,1, 1,0, 0,0
+float geomTexCoordsRepeat[]={ // 1:20 dla podlogi i sufitu
+    0,20, 20,20, 20,0, 0,0
+};
+
+float geomTexWallCoords[]={ // 1:10 dla scian
+    0,10, 10,10, 10,0, 0,0,
+    0,10, 10,10, 10,0, 0,0,
+    0,10, 10,10, 10,0, 0,0,
+    0,10, 10,10, 10,0, 0,0
 };
 
 int geomVertexWallsCount = 16;
@@ -769,7 +776,7 @@ glBindTexture(GL_TEXTURE_2D,tex[3]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture0);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoordsPictures);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -778,7 +785,7 @@ glBindTexture(GL_TEXTURE_2D,tex[4]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture1);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoordsPictures);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -787,7 +794,7 @@ glBindTexture(GL_TEXTURE_2D,tex[5]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture2);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoordsPictures);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -796,7 +803,7 @@ glBindTexture(GL_TEXTURE_2D,tex[6]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture3);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoordsPictures);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -805,7 +812,7 @@ glBindTexture(GL_TEXTURE_2D,tex[7]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture4);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoordsPictures);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -814,7 +821,7 @@ glBindTexture(GL_TEXTURE_2D,tex[8]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture5);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoordsPictures);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -823,7 +830,7 @@ glBindTexture(GL_TEXTURE_2D,tex[9]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture6);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoordsPictures);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -832,7 +839,7 @@ glBindTexture(GL_TEXTURE_2D,tex[10]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesPicture7);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoordsPictures);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -943,7 +950,7 @@ glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S,GL_REPEAT);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer( 3, GL_FLOAT, 0,  geomVerticesCeiling);
-glTexCoordPointer( 2, GL_FLOAT, 0,  geomTexCoords);
+glTexCoordPointer( 2, GL_FLOAT, 0,  geomTexCoordsRepeat);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -953,7 +960,7 @@ glBindTexture(GL_TEXTURE_2D,tex[0]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, geomVerticesFloor);
-glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoords);
+glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoordsRepeat);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
