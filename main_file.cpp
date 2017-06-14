@@ -30,13 +30,18 @@ Place, Fifth Floor, Boston, MA  02110 - 1301  USA
 #include "lodepng.h"
 #include "constants.h"
 #include "allmodels.h"
+#include <glm/gtc/type_ptr.hpp>
+#include <glm/glm.hpp>
 
 using namespace glm;
 
 //zmienne globalne
 
 GLuint tex[20]; // uchwyt do tekstur
-
+//Przetrzymywanie wierzcholkow modelu
+    std::vector< glm::vec3 > vertices;
+    std::vector< glm::vec2 > uvs;
+    std::vector< glm::vec3 > normals; // Won't be used at the moment.
 //Procedura obsługi błędów
 void error_callback(int error, const char* description) {
 	fputs(description, stderr);
@@ -80,6 +85,88 @@ float height = 3.0f;
 float barHeight = 2.0f;
 float pictureLowerBound = 0.5f;
 float pictureUpperBound = 2.5f;
+
+
+//Wczytywanie OBJ
+bool loadOBJ(
+    const char * path,
+    std::vector < glm::vec3 > & out_vertices,
+    std::vector < glm::vec2 > & out_uvs,
+    std::vector < glm::vec3 > & out_normals
+)
+{
+    // wektory tymczasowe
+    std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
+    std::vector< glm::vec3 > temp_vertices;
+    std::vector< glm::vec2 > temp_uvs;
+    std::vector< glm::vec3 > temp_normals;
+    // otwarcie pliku
+    FILE * file = fopen(path, "r");
+    if( file == NULL ){
+        printf("Impossible to open the file !\n");
+        return false;
+    }
+    // wczytywanie
+    while( 1 ){
+        char lineHeader[128];
+        int res = fscanf(file, "%s", lineHeader);
+        if (res == EOF)
+            break;
+        if ( strcmp( lineHeader, "v" ) == 0 ){
+        glm::vec3 vertex;
+        fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z );
+        temp_vertices.push_back(vertex);
+        }
+        else if ( strcmp( lineHeader, "vt" ) == 0 ){
+        glm::vec2 uv;
+        fscanf(file, "%f %f\n", &uv.x, &uv.y );
+        temp_uvs.push_back(uv);
+        }
+        else if ( strcmp( lineHeader, "vn" ) == 0 ){
+        glm::vec3 normal;
+        fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z );
+        temp_normals.push_back(normal);
+        }
+        else if ( strcmp( lineHeader, "f" ) == 0 ){
+        std::string vertex1, vertex2, vertex3;
+        unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
+        int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2] );
+        if (matches != 9){
+            printf("File can't be read by our simple parser : ( Try exporting with other options\n");
+            return false;
+        }
+        vertexIndices.push_back(vertexIndex[0]);
+        vertexIndices.push_back(vertexIndex[1]);
+        vertexIndices.push_back(vertexIndex[2]);
+        uvIndices    .push_back(uvIndex[0]);
+        uvIndices    .push_back(uvIndex[1]);
+        uvIndices    .push_back(uvIndex[2]);
+        normalIndices.push_back(normalIndex[0]);
+        normalIndices.push_back(normalIndex[1]);
+        normalIndices.push_back(normalIndex[2]);
+        }
+        for( unsigned int i=0; i<vertexIndices.size(); i++ ){
+            unsigned int vertexIndex = vertexIndices[i];
+            glm::vec3 vertex = temp_vertices[ vertexIndex-1 ];
+            out_vertices.push_back(vertex);
+        }
+        for( unsigned int i=0; i<uvIndices.size(); i++ ){
+            unsigned int uvIndex = uvIndices[i];
+            glm::vec2 vertex = temp_uvs[ uvIndex-1 ];
+            out_uvs.push_back(vertex);
+        }
+        for( unsigned int i=0; i<normalIndices.size(); i++ ){
+            unsigned int normalIndex = normalIndices[i];
+            glm::vec3 vertex = temp_normals[ normalIndex-1 ];
+            out_normals.push_back(vertex);
+        }
+        vertexIndices.clear();
+        uvIndices.clear();
+        normalIndices.clear();
+    }
+
+}
+
 
 void drawMatrix(){//minimapa w konsoli
     for(int i = 19; i >= 0; i--){
@@ -149,10 +236,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
         if (key == GLFW_KEY_UP){
             macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-            std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]<< "\n";
+            //std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]<< "\n";
             if(macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]==0){
                 x_camera_position += -(float)cos(ANGLE*PI/180.0);
-                std::cout<<"ruchx\n";
+                //std::cout<<"ruchx\n";
                 if(x_camera_position > 9.0f){
                     x_camera_position = 9.0f;
                 }else if(x_camera_position < -9.0f){
@@ -161,7 +248,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
             if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position-(float)sin(ANGLE*PI/180.0)))]==0){
                 z_camera_position += -(float)sin(ANGLE*PI/180.0);
-                std::cout<<"ruchz\n";
+                //std::cout<<"ruchz\n";
                 if(z_camera_position > 9.0f){
                     z_camera_position = 9.0f;
                 }else if(z_camera_position < -9.0f){
@@ -172,10 +259,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
         if (key == GLFW_KEY_DOWN){
             macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-            std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]<< "\n";
+            //std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]<< "\n";
             if(macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]==0){
                 x_camera_position += (float)cos(ANGLE*PI/180.0);
-                std::cout<<"ruchx\n";
+                //std::cout<<"ruchx\n";
                 if(x_camera_position > 9.0f){
                     x_camera_position = 9.0f;
                 }else if(x_camera_position < -9.0f){
@@ -184,7 +271,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
             if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position+(float)sin(ANGLE*PI/180.0)))]==0){
                 z_camera_position += (float)sin(ANGLE*PI/180.0);
-                std::cout<<"ruchz\n";
+                //std::cout<<"ruchz\n";
                 if(z_camera_position > 9.0f){
                     z_camera_position = 9.0f;
                 }else if(z_camera_position < -9.0f){
@@ -211,10 +298,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
         if (key == GLFW_KEY_UP){
             macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-            std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]<< "\n";
+            //std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]<< "\n";
             if(macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]==0){
                 x_camera_position += -(float)cos(ANGLE*PI/180.0)*0.2;
-                std::cout<<"ruchx\n";
+                //std::cout<<"ruchx\n";
                 if(x_camera_position > 9.0f){
                     x_camera_position = 9.0f;
                 }else if(x_camera_position < -9.0f){
@@ -223,7 +310,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
             if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position-(float)sin(ANGLE*PI/180.0)*0.2))]==0){
                 z_camera_position += -(float)sin(ANGLE*PI/180.0)*0.2;
-                std::cout<<"ruchz\n";
+                //std::cout<<"ruchz\n";
                 if(z_camera_position > 9.0f){
                     z_camera_position = 9.0f;
                 }else if(z_camera_position < -9.0f){
@@ -234,10 +321,10 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
         if (key == GLFW_KEY_DOWN){
             macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-            std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]<< "\n";
+           //std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]<< "\n";
             if(macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]==0){
                 x_camera_position += (float)cos(ANGLE*PI/180.0)*0.2;
-                std::cout<<"ruchx\n";
+                //std::cout<<"ruchx\n";
                 if(x_camera_position > 9.0f){
                     x_camera_position = 9.0f;
                 }else if(x_camera_position < -9.0f){
@@ -246,7 +333,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
             if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position+(float)sin(ANGLE*PI/180.0)*0.2))]==0){
                 z_camera_position += (float)sin(ANGLE*PI/180.0)*0.2;
-                std::cout<<"ruchz\n";
+                //std::cout<<"ruchz\n";
                 if(z_camera_position > 9.0f){
                     z_camera_position = 9.0f;
                 }else if(z_camera_position < -9.0f){
@@ -264,9 +351,15 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 }
 //Procedura inicjująca
 void initOpenGLProgram(GLFWwindow* window) {
-
+    bool res = loadOBJ("d.obj", vertices, uvs, normals); // wczytanie
+    /*for(int i = 0; i < vertices.size();i++)
+    {
+        std::cout<<vertices[i].x<<"\t";
+        std::cout<<vertices[i].y<<"\t";
+        std::cout<<vertices[i].z<<"\n";
+    }*/
     macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
-    drawMatrix();
+    //drawMatrix();
     displayTrigonometrics();
 
 	//************Tutaj umieszczaj kod, który należy wykonać raz, na początku programu************
@@ -412,6 +505,15 @@ void initOpenGLProgram(GLFWwindow* window) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glEnable(GL_TEXTURE_2D);
+
+    // 11 - przyklad textury na modelu ciuchci
+    glBindTexture(GL_TEXTURE_2D, tex[11]);
+    image.clear();
+    error = lodepng::decode(image, width, height, "wall_error.png");
+    glTexImage2D(GL_TEXTURE_2D, 0, 4, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (unsigned char*) image.data());
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glEnable(GL_TEXTURE_2D);
 }
 
 //Procedura rysująca zawartość sceny
@@ -452,7 +554,7 @@ void drawScene(GLFWwindow* window, float angle) {
 //    Models::torus.drawSolid();
 
     M = mat4(1.0f);
-    M = translate(M, vec3(-0.5f,-3.0f,-0.5f));
+    M = translate(M, vec3(-0.5f,-3.0f,-0.75f));
     glLoadMatrixf(glm::value_ptr(V*M));
 
 float geomVerticesPicture0[]={
@@ -961,8 +1063,24 @@ glTexCoordPointer( 2, GL_FLOAT, 0, geomTexCoordsRepeat);
 glDrawArrays(GL_QUADS,0,geomVertexFloorCount);
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-//glDisable(GL_TEXTURE_2D);
 
+//MODEL CIUCHCI
+float * wsk_vertices = glm::value_ptr(vertices[0]);
+float * wsk_uvs = glm::value_ptr(uvs[0]);
+float * wsk_normals = glm::value_ptr(normals[0]); // tylko do cieniowania
+glBindTexture(GL_TEXTURE_2D,tex[11]);
+glEnableClientState(GL_VERTEX_ARRAY);
+glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+glVertexPointer(3, GL_FLOAT, 0, wsk_vertices);
+glTexCoordPointer( 2, GL_FLOAT, 0, wsk_uvs);
+glTranslatef(5,1,-5); // raczej niedozwolone
+glDrawArrays(GL_TRIANGLES, 0, vertices.size());
+glDisableClientState(GL_VERTEX_ARRAY);
+glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+
+
+
+//glDisable(GL_TEXTURE_2D);
     glfwSwapBuffers(window); // zawsze ostatnie
 }
 

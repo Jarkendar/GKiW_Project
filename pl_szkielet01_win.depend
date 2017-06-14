@@ -2254,7 +2254,7 @@
 1489491214 c:\users\patryk\desktop\gkiw_project\detailed_cube.h
 	"model.h"
 
-1497097632 source:c:\users\patryk\desktop\gkiw_project\main_file.cpp
+1497459860 source:c:\users\patryk\desktop\gkiw_project\main_file.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
@@ -2266,6 +2266,8 @@
 	"lodepng.h"
 	"constants.h"
 	"allmodels.h"
+	<glm/gtc/type_ptr.hpp>
+	<glm/glm.hpp>
 
 1489491216 c:\users\patryk\desktop\gkiw_project\glew\include\gl\glew.h
 	<stddef.h>
