@@ -2254,7 +2254,7 @@
 1489491214 c:\users\patryk\desktop\gkiw_project\detailed_cube.h
 	"model.h"
 
-1495121726 source:c:\users\patryk\desktop\gkiw_project\main_file.cpp
+1497463630 source:c:\users\patryk\desktop\gkiw_project\main_file.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
@@ -2262,9 +2262,12 @@
 	<glm/gtc/matrix_transform.hpp>
 	<stdlib.h>
 	<stdio.h>
+	<iostream>
 	"lodepng.h"
 	"constants.h"
 	"allmodels.h"
+	<glm/gtc/type_ptr.hpp>
+	<glm/glm.hpp>
 
 1489491216 c:\users\patryk\desktop\gkiw_project\glew\include\gl\glew.h
 	<stddef.h>
@@ -4085,7 +4088,7 @@
 	<iostream>
 	"lodepng.h"
 
-1496081941 source:c:\users\jarek\desktop\grafika\gkiw_project\main_file.cpp
+1496331029 source:c:\users\jarek\desktop\grafika\gkiw_project\main_file.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
