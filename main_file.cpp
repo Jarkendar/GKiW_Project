@@ -86,6 +86,9 @@ float barHeight = 2.0f;
 float pictureLowerBound = 0.5f;
 float pictureUpperBound = 2.5f;
 float modelAngle = 0;
+float modelPosX = 5;
+float modelPosZ = -5;
+float modelRay = 5.5;
 //Wczytywanie OBJ
 bool loadOBJ(
     const char * path,
@@ -1073,7 +1076,7 @@ glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, wsk_vertices);
 glTexCoordPointer( 2, GL_FLOAT, 0, wsk_uvs);
     M = mat4(1.0f);
-    M = translate(M, vec3(5.0f,-1.5f,-5.0f));
+    M = translate(M, vec3(modelPosX,-1.5f,modelPosZ));
     M = rotate(M,modelAngle,vec3(1.0f,4.0f,2.0f) );
     glLoadMatrixf(glm::value_ptr(V*M));
 glDrawArrays(GL_TRIANGLES, 0, vertices.size());
@@ -1121,8 +1124,11 @@ int main(void)
 	//Główna pętla
 	while (!glfwWindowShouldClose(window)) //Tak długo jak okno nie powinno zostać zamknięte
 	{
-	    modelAngle+=speed*glfwGetTime();
-        glfwSetTime(0);
+	    modelAngle = speed*glfwGetTime();
+	    modelPosX = modelRay*cos(glfwGetTime());
+	    modelPosZ = modelRay*sin(glfwGetTime());
+	    //std::cout<<modelPosX << "\t" << modelPosZ << "\n";
+        //glfwSetTime(0);
 		drawScene(window, angle); //Wykonaj procedurę rysującą
 		glfwPollEvents(); //Wykonaj procedury callback w zalezności od zdarzeń jakie zaszły.
 	}
