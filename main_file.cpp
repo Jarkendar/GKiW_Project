@@ -85,8 +85,7 @@ float height = 3.0f;
 float barHeight = 2.0f;
 float pictureLowerBound = 0.5f;
 float pictureUpperBound = 2.5f;
-
-
+float modelAngle = 0;
 //Wczytywanie OBJ
 bool loadOBJ(
     const char * path,
@@ -351,7 +350,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 }
 //Procedura inicjująca
 void initOpenGLProgram(GLFWwindow* window) {
-    bool res = loadOBJ("d.obj", vertices, uvs, normals); // wczytanie
+    bool res = loadOBJ("cone3.obj", vertices, uvs, normals); // wczytanie
     /*for(int i = 0; i < vertices.size();i++)
     {
         std::cout<<vertices[i].x<<"\t";
@@ -547,7 +546,7 @@ void drawScene(GLFWwindow* window, float angle) {
 //    Models::torus.drawSolid();
 //    glRectf(0,0,4,4);
 //    glColor3d(0, 0.5, 0.1);
-//    M = mat4(1.0f);
+//    mat4 M = mat4(1.0f);
 //    M = translate(M, vec3(1.0f,0.0f,-1.0f));
 //    M = rotate(M,-angle,vec3(0.0f,0.0f,1.0f) );
 //    glLoadMatrixf(glm::value_ptr(V*M));
@@ -1068,12 +1067,15 @@ glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 float * wsk_vertices = glm::value_ptr(vertices[0]);
 float * wsk_uvs = glm::value_ptr(uvs[0]);
 float * wsk_normals = glm::value_ptr(normals[0]); // tylko do cieniowania
-glBindTexture(GL_TEXTURE_2D,tex[11]);
+glBindTexture(GL_TEXTURE_2D,tex[2]);
 glEnableClientState(GL_VERTEX_ARRAY);
 glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 glVertexPointer(3, GL_FLOAT, 0, wsk_vertices);
 glTexCoordPointer( 2, GL_FLOAT, 0, wsk_uvs);
-glTranslatef(5,1,-5); // raczej niedozwolone
+    M = mat4(1.0f);
+    M = translate(M, vec3(5.0f,-1.5f,-5.0f));
+    M = rotate(M,modelAngle,vec3(1.0f,4.0f,2.0f) );
+    glLoadMatrixf(glm::value_ptr(V*M));
 glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 glDisableClientState(GL_VERTEX_ARRAY);
 glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -1119,7 +1121,7 @@ int main(void)
 	//Główna pętla
 	while (!glfwWindowShouldClose(window)) //Tak długo jak okno nie powinno zostać zamknięte
 	{
-	    //angle+=speed*glfwGetTime();
+	    modelAngle+=speed*glfwGetTime();
         glfwSetTime(0);
 		drawScene(window, angle); //Wykonaj procedurę rysującą
 		glfwPollEvents(); //Wykonaj procedury callback w zalezności od zdarzeń jakie zaszły.
