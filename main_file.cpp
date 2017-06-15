@@ -42,6 +42,9 @@ using namespace glm;
 const int tex_size = 50; // liczba textur
 GLuint tex[tex_size]; // uchwyt do tekstur
 
+std::vector<float> walkX;
+std::vector<float> walkZ;
+
 //Przetrzymywanie wierzcholkow modelu
 struct model{
     std::vector< glm::vec3 > vertices;
@@ -445,9 +448,11 @@ void initOpenGLProgram(GLFWwindow* window) {
     loadOBJ("cylindroman.obj", "latajacy dookola");
     loadOBJ("monument.obj", "popiersie w kacie");
     loadOBJ("klockoman.obj", "kwadratowy ludzik");
+    loadOBJ("cylindroman.obj", "chodzacy po kwadracie");
     setModel(myModels[0], 5.0f, -2.0f, -5.0f, 5.3f, 45.0f);
     setModel(myModels[1], 1.0f, -3.0f, 1.0f);
     setModel(myModels[2], 5.0f, -3.7f, -5.0f, 7.0f, 8.0f);
+    setModel(myModels[3], 2.0f, -2.0f, -2.0f, 0.0f, -PI/2);
     /*for(int i = 0; i < vertices.size();i++)
     {
         std::cout<<vertices[i].x<<"\t";
@@ -512,6 +517,32 @@ void initOpenGLProgram(GLFWwindow* window) {
     loadTEX("pic6.png","picture6");
     loadTEX("pic7.png","picture7");
     loadTEX("marble.png","popiersie");
+
+
+    for (int i = 0; i < 241; i++)
+    {
+        walkX.push_back(2 + 1.0*i/40);
+        walkZ.push_back(-2);
+    }
+    for (int i = 0; i < 241; i++)
+    {
+        walkX.push_back(8);
+        walkZ.push_back(-2 - 1.0*i/40);
+    }
+    for (int i = 0; i < 241; i++)
+    {
+        walkX.push_back(8 - 1.0*i/40);
+        walkZ.push_back(-8);
+    }
+    for (int i = 0; i < 241; i++)
+    {
+        walkX.push_back(2);
+        walkZ.push_back(-8 + 1.0*i/40);
+    }
+
+
+
+
 }
 
 //Procedura rysująca zawartość sceny
@@ -615,6 +646,8 @@ useModel(5, GL_TRIANGLES, myModels[0].vertices, myModels[0].uvs, myModels[0].nor
 useModel(11, GL_TRIANGLES, myModels[1].vertices, myModels[1].uvs, myModels[1].normals, myModels[1].posX, myModels[1].posY, myModels[1].posZ, 45.0f, 0.0f, 1.0f, 0.0f, 0.5f, 0.5f, 0.5f);
 //MODEL KWADRATOWEGO CZLOWIEKA
 useModel(8, GL_TRIANGLES, myModels[2].vertices, myModels[2].uvs, myModels[2].normals, myModels[2].posX, myModels[2].posY, myModels[2].posZ, myModels[2].angle, 0.0f, 0.05f);
+//MODEL CHODZACY PO KWADRACIE
+useModel(7, GL_TRIANGLES, myModels[3].vertices, myModels[3].uvs, myModels[3].normals, myModels[3].posX, myModels[3].posY, myModels[3].posZ, myModels[3].angle);
 //std::cout <<  myModels[2].posX << "\t" <<  myModels[2].posY << "\t" << myModels[2].posZ << std::endl;
 
 //glDisable(GL_TEXTURE_2D);
@@ -653,8 +686,10 @@ int main(void)
 
     glfwSetTime(0);
 	//Główna pętla
+	int k = 0;
 	while (!glfwWindowShouldClose(window)) //Tak długo jak okno nie powinno zostać zamknięte
 	{
+	    k = k % 968;
 	    myModels[0].angle = speed*glfwGetTime();
 	    myModels[0].posX =  myModels[0].ray*cos(glfwGetTime());
 	    myModels[0].posZ =  myModels[0].ray*sin(glfwGetTime());
@@ -663,6 +698,13 @@ int main(void)
         myModels[2].angle = -speed/5*glfwGetTime();
 	    myModels[2].posX =  -myModels[2].ray*cos(glfwGetTime());
 	    myModels[2].posZ =  -myModels[2].ray*sin(glfwGetTime());
+        if (k % 242 == 0)
+        {
+            myModels[3].angle += PI/2;
+        }
+        myModels[3].posX = walkX[k];
+        myModels[3].posZ = walkZ[k];
+        k++;
 		drawScene(window); //Wykonaj procedurę rysującą
 		glfwPollEvents(); //Wykonaj procedury callback w zalezności od zdarzeń jakie zaszły.
 	}
