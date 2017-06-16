@@ -57,6 +57,7 @@ struct model{
     float angleX; // wszystkie katy w stopniach
     float angleY;
     float angleZ;
+    float scaleValue;
 };
 
 std::vector<model> myModels;
@@ -223,7 +224,7 @@ bool loadOBJ(
     amount++;
 }
 
-void setModel(model & Model, float x, float y, float z, float ray = 0, float angleX = 0, float angleY = 0, float angleZ = 0)
+void setModel(model & Model, float x, float y, float z, float ray = 0, float angleX = 0, float angleY = 0, float angleZ = 0, float scaleValue = 1)
 {
     Model.posX = x;
     Model.posY = y;
@@ -232,17 +233,14 @@ void setModel(model & Model, float x, float y, float z, float ray = 0, float ang
     Model.angleX = angleX;
     Model.angleY = angleY;
     Model.angleZ = angleZ;
+    Model.scaleValue = scaleValue;
 }
 
-void useModel(int textureNumber,  GLenum mode,
-        std::vector< glm::vec3 > &vertices, std::vector< glm::vec2 > &uvs, std::vector< glm::vec3 > &normals,
-        float translateX = 5, float translateY = -2, float translateZ = -5,
-        float angleX = 0, float angleY = 0, float angleZ = 0,
-        float scaleX = 1, float scaleY = 1, float scaleZ = 1)
+void useModel(int textureNumber,  GLenum mode, model &Model)
 {
-    float * wsk_vertices = glm::value_ptr(vertices[0]);
-    float * wsk_uvs = glm::value_ptr(uvs[0]);
-    float * wsk_normals = glm::value_ptr(normals[0]); // cieniowanie
+    float * wsk_vertices = glm::value_ptr(Model.vertices[0]);
+    float * wsk_uvs = glm::value_ptr(Model.uvs[0]);
+    float * wsk_normals = glm::value_ptr(Model.normals[0]); // cieniowanie
 
     glBindTexture(GL_TEXTURE_2D,tex[textureNumber]);
     glEnableClientState(GL_VERTEX_ARRAY);
@@ -254,13 +252,13 @@ void useModel(int textureNumber,  GLenum mode,
     glTexCoordPointer( 2, GL_FLOAT, 0, wsk_uvs);
 
     M = mat4(1.0f);
-    M = translate(M, vec3(translateX,translateY,translateZ));
-    M = rotate(M,angleY * PI / 180,vec3(0, 1, 0));
-    M = rotate(M,angleX * PI / 180,vec3(1, 0, 0));
-    M = rotate(M,angleZ * PI / 180,vec3(0, 0, 1));
-    M = scale(M, vec3(scaleX, scaleY, scaleZ));
+    M = translate(M, vec3(Model.posX,Model.posY,Model.posZ));
+    M = rotate(M,Model.angleY * PI / 180,vec3(0, 1, 0));
+    M = rotate(M,Model.angleX * PI / 180,vec3(1, 0, 0));
+    M = rotate(M,Model.angleZ * PI / 180,vec3(0, 0, 1));
+    M = scale(M, vec3(Model.scaleValue, Model.scaleValue, Model.scaleValue));
     glLoadMatrixf(glm::value_ptr(V*M));
-    glDrawArrays(mode, 0, vertices.size());
+    glDrawArrays(mode, 0, Model.vertices.size());
 
     glDisableClientState(GL_VERTEX_ARRAY);
     glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -455,10 +453,11 @@ void initOpenGLProgram(GLFWwindow* window) {
     loadOBJ("monument.obj", "popiersie w kacie");
     loadOBJ("klockoman.obj", "kwadratowy ludzik");
     loadOBJ("cylindroman.obj", "chodzacy po kwadracie");
-    setModel(myModels[0], 5.0f, -2.0f, -5.0f, 5.3f, 45.0f);
-    setModel(myModels[1], 1.0f, -3.0f, 1.0f);
-    setModel(myModels[2], 5.0f, -3.7f, -5.0f, 7.0f, 8.0f);
+    setModel(myModels[0], 5.0f, -2.0f, -5.0f, 5.3f, 0.0f, 45.0f);
+    setModel(myModels[1], 1.0f, -3.0f, 1.0f, 0.0f, 0.0f, 45.0f, 0.0f, 0.5f);
+    setModel(myModels[2], 5.0f, -3.7f, -5.0f, 5.8f);
     setModel(myModels[3], 2.0f, -2.1f, -2.0f, 0.0f, -5.5f, -90.0f);
+
     /*for(int i = 0; i < vertices.size();i++)
     {
         std::cout<<vertices[i].x<<"\t";
@@ -647,13 +646,13 @@ useTEX(0, GL_QUADS, geomVerticesFloor, geomTexCoordsRepeat, geomVertexFloorCount
 
 ///MODELE
 //MODEL OKRAGLEGO CZLOWIEKA
-useModel(5, GL_TRIANGLES, myModels[0].vertices, myModels[0].uvs, myModels[0].normals, myModels[0].posX, myModels[0].posY, myModels[0].posZ, myModels[0].angleY, 1.0f, 4.0f, 2.0f);
+useModel(5, GL_TRIANGLES, myModels[0]);
 //MODEL POSĄGU
-useModel(11, GL_TRIANGLES, myModels[1].vertices, myModels[1].uvs, myModels[1].normals, myModels[1].posX, myModels[1].posY, myModels[1].posZ, 0.0f, 1.0f, 0.0f, 0.5f, 0.5f, 0.5f);
+useModel(11, GL_TRIANGLES, myModels[1]);
 //MODEL KWADRATOWEGO CZLOWIEKA
-useModel(8, GL_TRIANGLES, myModels[2].vertices, myModels[2].uvs, myModels[2].normals, myModels[2].posX, myModels[2].posY, myModels[2].posZ, myModels[2].angleY, 0.0f, 0.05f);
+useModel(8, GL_TRIANGLES, myModels[2]);
 //MODEL CHODZACY PO KWADRACIE
-useModel(7, GL_TRIANGLES, myModels[3].vertices, myModels[3].uvs, myModels[3].normals, myModels[3].posX, myModels[3].posY, myModels[3].posZ, myModels[3].angleX, myModels[3].angleY, myModels[3].angleZ, 0.9f, 0.9f, 0.9f);
+useModel(7, GL_TRIANGLES, myModels[3]);
 //std::cout <<  myModels[2].posX << "\t" <<  myModels[2].posY << "\t" << myModels[2].posZ << std::endl;
 
 //glDisable(GL_TEXTURE_2D);
