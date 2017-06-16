@@ -453,9 +453,9 @@ void initOpenGLProgram(GLFWwindow* window) {
     loadOBJ("monument.obj", "popiersie w kacie");
     loadOBJ("klockoman.obj", "kwadratowy ludzik");
     loadOBJ("cylindroman.obj", "chodzacy po kwadracie");
-    setModel(myModels[0], 5.0f, -2.0f, -5.0f, 5.3f, 0.0f, 45.0f);
+    setModel(myModels[0], 5.0f, -2.0f, -5.0f, 5.3f, -5.5f, 180.0f);
     setModel(myModels[1], 1.0f, -3.0f, 1.0f, 0.0f, 0.0f, 45.0f, 0.0f, 0.5f);
-    setModel(myModels[2], 5.0f, -3.7f, -5.0f, 5.8f);
+    setModel(myModels[2], 5.0f, -3.7f, -5.0f, 5.3f);
     setModel(myModels[3], 2.0f, -2.1f, -2.0f, 0.0f, -5.5f, -90.0f);
 
     /*for(int i = 0; i < vertices.size();i++)
@@ -544,9 +544,6 @@ void initOpenGLProgram(GLFWwindow* window) {
         walkX.push_back(2);
         walkZ.push_back(-8 + 1.0*i/40);
     }
-
-
-
 
 }
 
@@ -695,15 +692,24 @@ int main(void)
 	while (!glfwWindowShouldClose(window)) //Tak długo jak okno nie powinno zostać zamknięte
 	{
 	    k = k % 968;
+
+	    //MODEL0
 	    myModels[0].angleY = speed*glfwGetTime();
 	    myModels[0].posX =  myModels[0].ray*cos(glfwGetTime());
 	    myModels[0].posZ =  myModels[0].ray*sin(glfwGetTime());
 	    //std::cout<< myModels[0].posX << "\t" << myModels[0].posZ << "\n";
         //glfwSetTime(0);
-        myModels[2].angleY = -speed/5*glfwGetTime();
-	    myModels[2].posX =  -myModels[2].ray*cos(glfwGetTime());
-	    myModels[2].posZ =  -myModels[2].ray*sin(glfwGetTime());
 
+        //MODEL2
+        myModels[2].angleY -= 0.15; // trzeba zwiazac to z katem obrotu/przebyta trasa, bo liczba iteracji bedzie miala wplyw
+	    myModels[2].posX =  -myModels[2].ray*cos(glfwGetTime()/5);
+	    myModels[2].posZ =  -myModels[2].ray*sin(glfwGetTime()/5);
+        if(k % 22 < 11)
+        myModels[2].angleX += 0.5;
+        else
+        myModels[2].angleX -= 0.5;
+
+        //MODEL3
         if (k % 242 == 0)
         {
             myModels[3].angleY = int(90 + myModels[3].angleY) % 360;
@@ -716,6 +722,7 @@ int main(void)
 
         myModels[3].posX = walkX[k];
         myModels[3].posZ = walkZ[k];
+
         k++;
 		drawScene(window); //Wykonaj procedurę rysującą
 		glfwPollEvents(); //Wykonaj procedury callback w zalezności od zdarzeń jakie zaszły.
