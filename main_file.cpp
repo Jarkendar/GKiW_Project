@@ -174,6 +174,7 @@ bool loadOBJ(
         else if ( strcmp( lineHeader, "vt" ) == 0 ){
         glm::vec2 uv;
         fscanf(file, "%f %f\n", &uv.x, &uv.y );
+        uv.y = 1 - uv.y; // export z blendera przechodzi poprawnie, uv != st    s == u, t = 1 - v
         temp_uvs.push_back(uv);
         }
         else if ( strcmp( lineHeader, "vn" ) == 0 ){
@@ -522,7 +523,7 @@ void initOpenGLProgram(GLFWwindow* window) {
     loadTEX("pic6.png","picture6");
     loadTEX("pic7.png","picture7");
     loadTEX("marble.png","popiersie");
-
+    loadTEX("human1.png","cylinderman");
 
     for (int i = 0; i < 241; i++)
     {
@@ -643,13 +644,13 @@ useTEX(0, GL_QUADS, geomVerticesFloor, geomTexCoordsRepeat, geomVertexFloorCount
 
 ///MODELE
 //MODEL OKRAGLEGO CZLOWIEKA
-useModel(5, GL_TRIANGLES, myModels[0]);
+useModel(12, GL_TRIANGLES, myModels[0]);
 //MODEL POSĄGU
 useModel(11, GL_TRIANGLES, myModels[1]);
 //MODEL KWADRATOWEGO CZLOWIEKA
 useModel(8, GL_TRIANGLES, myModels[2]);
 //MODEL CHODZACY PO KWADRACIE
-useModel(7, GL_TRIANGLES, myModels[3]);
+useModel(12, GL_TRIANGLES, myModels[3]);
 //std::cout <<  myModels[2].posX << "\t" <<  myModels[2].posY << "\t" << myModels[2].posZ << std::endl;
 
 //glDisable(GL_TEXTURE_2D);

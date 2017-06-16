@@ -1,13 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="main_file.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="sphere.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="13958" topLine="93" />
+			<Cursor1 position="0" topLine="72" />
+		</Cursor>
+	</File>
+	<File name="detailed_cube.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="11" />
+		</Cursor>
+	</File>
+	<File name="sphere.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="29" />
+		</Cursor>
+	</File>
+	<File name="model.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="2" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="9" />
+		</Cursor>
+	</File>
+	<File name="teapot.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="4" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="23" />
+		</Cursor>
+	</File>
+	<File name="cube.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="18" />
+		</Cursor>
+	</File>
+	<File name="main_file.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="18067" topLine="426" />
 		</Cursor>
 		<Folding>
-			<Collapse line="45" />
-			<Collapse line="58" />
+			<Collapse line="65" />
 		</Folding>
+	</File>
+	<File name="cube.cpp" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="529" topLine="155" />
+		</Cursor>
+	</File>
+	<File name="lodepng.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="0" topLine="150" />
+		</Cursor>
+	</File>
+	<File name="coords.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1637" topLine="40" />
+		</Cursor>
 	</File>
 </CodeBlocks_layout_file>
