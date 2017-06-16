@@ -54,7 +54,9 @@ struct model{
     float posY;
     float posZ;
     float ray; // tylko dla tych po okregu
-    float angle;
+    float angleX; // wszystkie katy w stopniach
+    float angleY;
+    float angleZ;
 };
 
 std::vector<model> myModels;
@@ -221,19 +223,21 @@ bool loadOBJ(
     amount++;
 }
 
-void setModel(model & Model, float x, float y, float z, float ray = 0, float angle = 0)
+void setModel(model & Model, float x, float y, float z, float ray = 0, float angleX = 0, float angleY = 0, float angleZ = 0)
 {
     Model.posX = x;
     Model.posY = y;
     Model.posZ = z;
     Model.ray = ray;
-    Model.angle = angle;
+    Model.angleX = angleX;
+    Model.angleY = angleY;
+    Model.angleZ = angleZ;
 }
 
 void useModel(int textureNumber,  GLenum mode,
         std::vector< glm::vec3 > &vertices, std::vector< glm::vec2 > &uvs, std::vector< glm::vec3 > &normals,
-        float translateX = 0, float translateY = 0, float translateZ = 0,
-        float angle = 0, float rotateX = 0, float rotateY = 1, float rotateZ = 0,
+        float translateX = 5, float translateY = -2, float translateZ = -5,
+        float angleX = 0, float angleY = 0, float angleZ = 0,
         float scaleX = 1, float scaleY = 1, float scaleZ = 1)
 {
     float * wsk_vertices = glm::value_ptr(vertices[0]);
@@ -251,7 +255,9 @@ void useModel(int textureNumber,  GLenum mode,
 
     M = mat4(1.0f);
     M = translate(M, vec3(translateX,translateY,translateZ));
-    M = rotate(M,angle,vec3(rotateX,rotateY,rotateZ));
+    M = rotate(M,angleY * PI / 180,vec3(0, 1, 0));
+    M = rotate(M,angleX * PI / 180,vec3(1, 0, 0));
+    M = rotate(M,angleZ * PI / 180,vec3(0, 0, 1));
     M = scale(M, vec3(scaleX, scaleY, scaleZ));
     glLoadMatrixf(glm::value_ptr(V*M));
     glDrawArrays(mode, 0, vertices.size());
@@ -452,7 +458,7 @@ void initOpenGLProgram(GLFWwindow* window) {
     setModel(myModels[0], 5.0f, -2.0f, -5.0f, 5.3f, 45.0f);
     setModel(myModels[1], 1.0f, -3.0f, 1.0f);
     setModel(myModels[2], 5.0f, -3.7f, -5.0f, 7.0f, 8.0f);
-    setModel(myModels[3], 2.0f, -2.0f, -2.0f, 0.0f, -PI/2);
+    setModel(myModels[3], 2.0f, -2.1f, -2.0f, 0.0f, -5.5f, -90.0f);
     /*for(int i = 0; i < vertices.size();i++)
     {
         std::cout<<vertices[i].x<<"\t";
@@ -641,13 +647,13 @@ useTEX(0, GL_QUADS, geomVerticesFloor, geomTexCoordsRepeat, geomVertexFloorCount
 
 ///MODELE
 //MODEL OKRAGLEGO CZLOWIEKA
-useModel(5, GL_TRIANGLES, myModels[0].vertices, myModels[0].uvs, myModels[0].normals, myModels[0].posX, myModels[0].posY, myModels[0].posZ, myModels[0].angle, 1.0f, 4.0f, 2.0f);
+useModel(5, GL_TRIANGLES, myModels[0].vertices, myModels[0].uvs, myModels[0].normals, myModels[0].posX, myModels[0].posY, myModels[0].posZ, myModels[0].angleY, 1.0f, 4.0f, 2.0f);
 //MODEL POSĄGU
-useModel(11, GL_TRIANGLES, myModels[1].vertices, myModels[1].uvs, myModels[1].normals, myModels[1].posX, myModels[1].posY, myModels[1].posZ, 45.0f, 0.0f, 1.0f, 0.0f, 0.5f, 0.5f, 0.5f);
+useModel(11, GL_TRIANGLES, myModels[1].vertices, myModels[1].uvs, myModels[1].normals, myModels[1].posX, myModels[1].posY, myModels[1].posZ, 0.0f, 1.0f, 0.0f, 0.5f, 0.5f, 0.5f);
 //MODEL KWADRATOWEGO CZLOWIEKA
-useModel(8, GL_TRIANGLES, myModels[2].vertices, myModels[2].uvs, myModels[2].normals, myModels[2].posX, myModels[2].posY, myModels[2].posZ, myModels[2].angle, 0.0f, 0.05f);
+useModel(8, GL_TRIANGLES, myModels[2].vertices, myModels[2].uvs, myModels[2].normals, myModels[2].posX, myModels[2].posY, myModels[2].posZ, myModels[2].angleY, 0.0f, 0.05f);
 //MODEL CHODZACY PO KWADRACIE
-useModel(7, GL_TRIANGLES, myModels[3].vertices, myModels[3].uvs, myModels[3].normals, myModels[3].posX, myModels[3].posY, myModels[3].posZ, myModels[3].angle);
+useModel(7, GL_TRIANGLES, myModels[3].vertices, myModels[3].uvs, myModels[3].normals, myModels[3].posX, myModels[3].posY, myModels[3].posZ, myModels[3].angleX, myModels[3].angleY, myModels[3].angleZ, 0.9f, 0.9f, 0.9f);
 //std::cout <<  myModels[2].posX << "\t" <<  myModels[2].posY << "\t" << myModels[2].posZ << std::endl;
 
 //glDisable(GL_TEXTURE_2D);
@@ -690,18 +696,25 @@ int main(void)
 	while (!glfwWindowShouldClose(window)) //Tak długo jak okno nie powinno zostać zamknięte
 	{
 	    k = k % 968;
-	    myModels[0].angle = speed*glfwGetTime();
+	    myModels[0].angleY = speed*glfwGetTime();
 	    myModels[0].posX =  myModels[0].ray*cos(glfwGetTime());
 	    myModels[0].posZ =  myModels[0].ray*sin(glfwGetTime());
 	    //std::cout<< myModels[0].posX << "\t" << myModels[0].posZ << "\n";
         //glfwSetTime(0);
-        myModels[2].angle = -speed/5*glfwGetTime();
+        myModels[2].angleY = -speed/5*glfwGetTime();
 	    myModels[2].posX =  -myModels[2].ray*cos(glfwGetTime());
 	    myModels[2].posZ =  -myModels[2].ray*sin(glfwGetTime());
+
         if (k % 242 == 0)
         {
-            myModels[3].angle += PI/2;
+            myModels[3].angleY = int(90 + myModels[3].angleY) % 360;
         }
+
+        if(k % 22 < 11)
+        myModels[3].angleX += 1;
+        else
+        myModels[3].angleX -= 1;
+
         myModels[3].posX = walkX[k];
         myModels[3].posZ = walkZ[k];
         k++;
