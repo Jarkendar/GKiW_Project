@@ -246,10 +246,10 @@ void useModel(int textureNumber,  GLenum mode, model &Model)
     glBindTexture(GL_TEXTURE_2D,tex[textureNumber]);
     glEnableClientState(GL_VERTEX_ARRAY);
     glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-    //glEnableClientState( GL_NORMAL_ARRAY ); cieniowanie
+    glEnableClientState( GL_NORMAL_ARRAY );// cieniowanie
 
     glVertexPointer(3, GL_FLOAT, 0, wsk_vertices);
-    //glNormalPointer( GL_FLOAT, 0, wsk_normals); cieniowanie
+    glNormalPointer( GL_FLOAT, 0, wsk_normals);// cieniowanie
     glTexCoordPointer( 2, GL_FLOAT, 0, wsk_uvs);
 
     M = mat4(1.0f);
@@ -289,24 +289,6 @@ void drawMatrix(){//minimapa w konsoli
     std::cout<<"Pozycja gracza : x="<<x_camera_position<<" z="<<z_camera_position<<"\n"<<"\n";
 }
 
-int mySinus(){
-    switch ((int)ANGLE){
-        case 0: return 0;
-        case 90: return 1;
-        case 180: return 0;
-        case 270: return -1;
-    }
-}
-
-int myCosinus(){
-    switch ((int)ANGLE){
-        case 0: return 1;
-        case 90: return 0;
-        case 180: return -1;
-        case 270: return 0;
-    }
-}
-
 void displayTrigonometrics(){
     std::cout<<"cos"<<ANGLE<<" "<<cos(ANGLE*PI/180.0)<<"\n";
     std::cout<<"sin"<<ANGLE<<" "<<sin(ANGLE*PI/180.0)<<"\n";
@@ -334,10 +316,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
         if (key == GLFW_KEY_UP){
             macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-            //std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]<< "\n";
             if(macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]==0){
                 x_camera_position += -(float)cos(ANGLE*PI/180.0);
-                //std::cout<<"ruchx\n";
                 if(x_camera_position > 9.0f){
                     x_camera_position = 9.0f;
                 }else if(x_camera_position < -9.0f){
@@ -346,7 +326,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
             if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position-(float)sin(ANGLE*PI/180.0)))]==0){
                 z_camera_position += -(float)sin(ANGLE*PI/180.0);
-                //std::cout<<"ruchz\n";
                 if(z_camera_position > 9.0f){
                     z_camera_position = 9.0f;
                 }else if(z_camera_position < -9.0f){
@@ -357,10 +336,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
         if (key == GLFW_KEY_DOWN){
             macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-            //std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]<< "\n";
             if(macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]==0){
                 x_camera_position += (float)cos(ANGLE*PI/180.0);
-                //std::cout<<"ruchx\n";
                 if(x_camera_position > 9.0f){
                     x_camera_position = 9.0f;
                 }else if(x_camera_position < -9.0f){
@@ -369,7 +346,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
             if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position+(float)sin(ANGLE*PI/180.0)))]==0){
                 z_camera_position += (float)sin(ANGLE*PI/180.0);
-                //std::cout<<"ruchz\n";
                 if(z_camera_position > 9.0f){
                     z_camera_position = 9.0f;
                 }else if(z_camera_position < -9.0f){
@@ -396,10 +372,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
         if (key == GLFW_KEY_UP){
             macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-            //std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]<< "\n";
             if(macierzRuchu[matrixPosition((x_camera_position-(float)cos(ANGLE*PI/180.0)))][matrixPosition((z_camera_position))]==0){
                 x_camera_position += -(float)cos(ANGLE*PI/180.0)*0.2;
-                //std::cout<<"ruchx\n";
                 if(x_camera_position > 9.0f){
                     x_camera_position = 9.0f;
                 }else if(x_camera_position < -9.0f){
@@ -408,7 +382,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
             if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position-(float)sin(ANGLE*PI/180.0)*0.2))]==0){
                 z_camera_position += -(float)sin(ANGLE*PI/180.0)*0.2;
-                //std::cout<<"ruchz\n";
                 if(z_camera_position > 9.0f){
                     z_camera_position = 9.0f;
                 }else if(z_camera_position < -9.0f){
@@ -419,10 +392,8 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
         if (key == GLFW_KEY_DOWN){
             macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 0;
-           //std::cout<<"ruch przod"<< macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]<< "\n";
             if(macierzRuchu[matrixPosition((x_camera_position+(float)cos(ANGLE*PI/180.0)*0.2))][matrixPosition((z_camera_position))]==0){
                 x_camera_position += (float)cos(ANGLE*PI/180.0)*0.2;
-                //std::cout<<"ruchx\n";
                 if(x_camera_position > 9.0f){
                     x_camera_position = 9.0f;
                 }else if(x_camera_position < -9.0f){
@@ -431,7 +402,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             }
             if(macierzRuchu[matrixPosition((x_camera_position))][matrixPosition((z_camera_position+(float)sin(ANGLE*PI/180.0)*0.2))]==0){
                 z_camera_position += (float)sin(ANGLE*PI/180.0)*0.2;
-                //std::cout<<"ruchz\n";
                 if(z_camera_position > 9.0f){
                     z_camera_position = 9.0f;
                 }else if(z_camera_position < -9.0f){
@@ -441,11 +411,6 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
             macierzRuchu[matrixPosition(x_camera_position)][matrixPosition(z_camera_position)] = 1;
         }
     }
-    //drawMatrix();
-/*if (action == GLFW_RELEASE)
-{
-    if (key == GLFW_KEY_RIGHT || key == GLFW_KEY_LEFT) speed = 0;
-}*/
 }
 //Procedura inicjująca
 void initOpenGLProgram(GLFWwindow* window) {
@@ -473,21 +438,21 @@ void initOpenGLProgram(GLFWwindow* window) {
    // glClearColor(0.12,0.4,0,1);
     glClearColor(0,1,1,1); // kolor tla
 
-    float diff[] = {1,1,1,1};
-    float spec[] = {1,1,1,1};
+    float diff[] = {0.5f,0.5f,0.5f,1.0f};
+    float spec[] = {0.5f,0.5f,0.5f,1.0f};
     float lightPos1[] = {5.0f, height, -5.0f, 1.0f}; // lewy dol na minimapie
     float lightPos2[] = {-5.0f, height, -5.0f, 1.0f}; // lewa gora
     float lightPos3[] = {5.0f, height, 5.0f, 1.0f}; // prawy dol
     float lightPos4[] = {-5.0f, height, 5.0f, 1.0f}; // prawa gora
+    float lightPos5[] = {0.0f, 1.5f, 0.0f,1.0f};// w kamerze
+
 
     glLightModelf(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_TRUE);
     glLightModelf(GL_LIGHT_MODEL_TWO_SIDE, GL_TRUE);
     glEnable(GL_LIGHTING);
-    glEnable(GL_LIGHT0);
-    glEnable(GL_LIGHT1);
-    glEnable(GL_LIGHT2);
-    glEnable(GL_LIGHT3);
-    glEnable(GL_LIGHT4);
+
+
+    glShadeModel(GL_SMOOTH);//cieniowanie z interpolacją liniową
 
     glLightfv(GL_LIGHT1,GL_AMBIENT,diff);
     glLightfv(GL_LIGHT1,GL_DIFFUSE,spec);
@@ -501,14 +466,25 @@ void initOpenGLProgram(GLFWwindow* window) {
     glLightfv(GL_LIGHT4,GL_AMBIENT,diff);
     glLightfv(GL_LIGHT4,GL_DIFFUSE,spec);
 
+    glLightfv(GL_LIGHT5,GL_AMBIENT,diff);
+    glLightfv(GL_LIGHT5,GL_DIFFUSE,spec);
 
     glLightfv(GL_LIGHT1,GL_POSITION,lightPos1);
     glLightfv(GL_LIGHT2,GL_POSITION,lightPos2);
     glLightfv(GL_LIGHT3,GL_POSITION,lightPos3);
     glLightfv(GL_LIGHT4,GL_POSITION,lightPos4);
+    glLightfv(GL_LIGHT5,GL_POSITION,lightPos5);
+
 
     glEnable(GL_DEPTH_TEST);
     glfwSetKeyCallback(window, key_callback);
+
+//    glEnable(GL_LIGHT0);//domyślne
+//    glEnable(GL_LIGHT1);
+//    glEnable(GL_LIGHT2);
+//    glEnable(GL_LIGHT3);
+//    glEnable(GL_LIGHT4);
+    glEnable(GL_LIGHT5);
 
     std::cout << "Textures:" << std::endl;
     loadTEX("blue_marble.png","podloga");
