@@ -432,7 +432,7 @@ void initOpenGLProgram(GLFWwindow* window) {
 
     glClearColor(0,1,1,1); // kolor tla
 
-    float diff[] = {0.3f,0.3f,0.3f,1.0f};
+    float diff[] = {0.6f,0.6f,0.6f,1.0f};
     float spec[] = {0.1f,0.1f,0.1f,1.0f};
     //światła wokół kamery i lekko pod nią
     float lightPos1[] = {1.0f, height-1.0f, -1.0f, 0.0f};
