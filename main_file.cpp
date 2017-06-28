@@ -545,7 +545,7 @@ void drawScene(GLFWwindow* window) {
     glMatrixMode(GL_MODELVIEW);
 
     M = mat4(1.0f);
-    M = translate(M, vec3(-0.5f,-3.0f,-0.75f));
+    M = translate(M, vec3(-0.3f,-3.0f,-0.3f));
     glLoadMatrixf(glm::value_ptr(V*M));
 
 
