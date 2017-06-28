@@ -2353,7 +2353,7 @@
 1489491214 c:\users\patryk\desktop\gkiw_project\torus.h
 	"model.h"
 
-1489491214 source:c:\users\patryk\desktop\gkiw_project\model.cpp
+1498665601 source:c:\users\patryk\desktop\gkiw_project\model.cpp
 	"model.h"
 
 1489491214 source:c:\users\patryk\desktop\gkiw_project\sphere.cpp
@@ -3591,19 +3591,19 @@
 	"teapot.h"
 	"torus.h"
 
-1495798002 source:c:\users\jarek\desktop\grafika\gkiw_project\cube.cpp
+1498672864 source:c:\users\jarek\desktop\grafika\gkiw_project\cube.cpp
 	"cube.h"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\cube.h
+1498672864 c:\users\jarek\desktop\grafika\gkiw_project\cube.h
 	"model.h"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\model.h
+1498672864 c:\users\jarek\desktop\grafika\gkiw_project\model.h
 	<vector>
 	<glm/glm.hpp>
 	<GLFW/glfw3.h>
 	"constants.h"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\glm.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\glm.hpp
 	"detail/_fixes.hpp"
 	<cmath>
 	<climits>
@@ -3632,26 +3632,26 @@
 	"vector_relational.hpp"
 	"integer.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\_fixes.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\_fixes.hpp
 	<cmath>
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\fwd.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\fwd.hpp
 	"detail/type_int.hpp"
 	"detail/type_float.hpp"
 	"detail/type_vec.hpp"
 	"detail/type_mat.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_int.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_int.hpp
 	"setup.hpp"
 	<type_traits>
 	<cstdint>
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\setup.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\setup.hpp
 	<cassert>
 	<cstddef>
 	"../simd/platform.h"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\simd\platform.h
+1498672861 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\simd\platform.h
 	<cuda.h>
 	<intrin.h>
 	<immintrin.h>
@@ -3663,66 +3663,66 @@
 	<pmmintrin.h>
 	<emmintrin.h>
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_float.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_float.hpp
 	"setup.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec.hpp
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec.hpp
 	"precision.hpp"
 	"type_int.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\precision.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\precision.hpp
 	"setup.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat.hpp
 	"precision.hpp"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\vec2.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\vec2.hpp
 	"detail/type_vec2.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec2.hpp
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec2.hpp
 	"type_vec.hpp"
 	"_swizzle.hpp"
 	"_swizzle_func.hpp"
 	<cstddef>
 	"type_vec2.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\_swizzle.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\_swizzle.hpp
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\_swizzle_func.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\_swizzle_func.hpp
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec2.inl
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec2.inl
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\vec3.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\vec3.hpp
 	"detail/type_vec3.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec3.hpp
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec3.hpp
 	"type_vec.hpp"
 	"_swizzle.hpp"
 	"_swizzle_func.hpp"
 	<cstddef>
 	"type_vec3.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec3.inl
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec3.inl
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\vec4.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\vec4.hpp
 	"detail/type_vec4.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec4.hpp
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec4.hpp
 	"type_vec.hpp"
 	"_swizzle.hpp"
 	"_swizzle_func.hpp"
 	<cstddef>
 	"type_vec4.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec4.inl
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec4.inl
 	"type_vec4_simd.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec4_simd.inl
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec4_simd.inl
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat2x2.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat2x2.hpp
 	"detail/type_mat2x2.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat2x2.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat2x2.hpp
 	"../fwd.hpp"
 	"type_vec2.hpp"
 	"type_mat.hpp"
@@ -3730,10 +3730,10 @@
 	<cstddef>
 	"type_mat2x2.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat2x2.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat2x2.inl
 	"func_matrix.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_matrix.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_matrix.hpp
 	"../detail/precision.hpp"
 	"../detail/setup.hpp"
 	"../detail/type_mat.hpp"
@@ -3751,10 +3751,10 @@
 	"../mat4x4.hpp"
 	"func_matrix.inl"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat2x3.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat2x3.hpp
 	"detail/type_mat2x3.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat2x3.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat2x3.hpp
 	"../fwd.hpp"
 	"type_vec2.hpp"
 	"type_vec3.hpp"
@@ -3763,12 +3763,12 @@
 	<cstddef>
 	"type_mat2x3.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat2x3.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat2x3.inl
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat2x4.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat2x4.hpp
 	"detail/type_mat2x4.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat2x4.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat2x4.hpp
 	"../fwd.hpp"
 	"type_vec2.hpp"
 	"type_vec4.hpp"
@@ -3777,12 +3777,12 @@
 	<cstddef>
 	"type_mat2x4.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat2x4.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat2x4.inl
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat3x2.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat3x2.hpp
 	"detail/type_mat3x2.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat3x2.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat3x2.hpp
 	"../fwd.hpp"
 	"type_vec2.hpp"
 	"type_vec3.hpp"
@@ -3791,12 +3791,12 @@
 	<cstddef>
 	"type_mat3x2.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat3x2.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat3x2.inl
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat3x3.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat3x3.hpp
 	"detail/type_mat3x3.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat3x3.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat3x3.hpp
 	"../fwd.hpp"
 	"type_vec3.hpp"
 	"type_mat.hpp"
@@ -3804,13 +3804,13 @@
 	<cstddef>
 	"type_mat3x3.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat3x3.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat3x3.inl
 	"func_matrix.hpp"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat3x4.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat3x4.hpp
 	"detail/type_mat3x4.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat3x4.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat3x4.hpp
 	"../fwd.hpp"
 	"type_vec3.hpp"
 	"type_vec4.hpp"
@@ -3819,12 +3819,12 @@
 	<cstddef>
 	"type_mat3x4.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat3x4.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat3x4.inl
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat4x2.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat4x2.hpp
 	"detail/type_mat4x2.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x2.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x2.hpp
 	"../fwd.hpp"
 	"type_vec2.hpp"
 	"type_vec4.hpp"
@@ -3833,12 +3833,12 @@
 	<cstddef>
 	"type_mat4x2.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x2.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x2.inl
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat4x3.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat4x3.hpp
 	"detail/type_mat4x3.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x3.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x3.hpp
 	"../fwd.hpp"
 	"type_vec3.hpp"
 	"type_vec4.hpp"
@@ -3847,12 +3847,12 @@
 	<cstddef>
 	"type_mat4x3.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x3.inl
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x3.inl
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat4x4.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\mat4x4.hpp
 	"detail/type_mat4x4.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x4.hpp
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x4.hpp
 	"../fwd.hpp"
 	"type_vec4.hpp"
 	"type_mat.hpp"
@@ -3860,25 +3860,25 @@
 	<cstddef>
 	"type_mat4x4.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x4.inl
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x4.inl
 	"func_matrix.hpp"
 	"type_mat4x4_simd.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x4_simd.inl
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_mat4x4_simd.inl
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_matrix.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_matrix.inl
 	"../geometric.hpp"
 	<limits>
 	"func_matrix_simd.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\geometric.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\geometric.hpp
 	"detail/func_geometric.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_geometric.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_geometric.hpp
 	"type_vec3.hpp"
 	"func_geometric.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_geometric.inl
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_geometric.inl
 	"func_exponential.hpp"
 	"func_common.hpp"
 	"type_vec2.hpp"
@@ -3886,7 +3886,7 @@
 	"type_float.hpp"
 	"func_geometric_simd.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_exponential.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_exponential.hpp
 	"type_vec1.hpp"
 	"type_vec2.hpp"
 	"type_vec3.hpp"
@@ -3894,7 +3894,7 @@
 	<cmath>
 	"func_exponential.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec1.hpp
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec1.hpp
 	"../fwd.hpp"
 	"type_vec.hpp"
 	"_swizzle.hpp"
@@ -3902,9 +3902,9 @@
 	<cstddef>
 	"type_vec1.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec1.inl
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_vec1.inl
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_exponential.inl
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_exponential.inl
 	"func_vector_relational.hpp"
 	"_vectorize.hpp"
 	<limits>
@@ -3912,37 +3912,37 @@
 	<cassert>
 	"func_exponential_simd.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_vector_relational.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_vector_relational.hpp
 	"precision.hpp"
 	"setup.hpp"
 	"func_vector_relational.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_vector_relational.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_vector_relational.inl
 	<limits>
 	"func_vector_relational_simd.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_vector_relational_simd.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_vector_relational_simd.inl
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\_vectorize.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\_vectorize.hpp
 	"type_vec1.hpp"
 	"type_vec2.hpp"
 	"type_vec3.hpp"
 	"type_vec4.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_exponential_simd.inl
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_exponential_simd.inl
 	"../simd/exponential.h"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\simd\exponential.h
+1498672861 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\simd\exponential.h
 	"platform.h"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_common.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_common.hpp
 	"setup.hpp"
 	"precision.hpp"
 	"type_int.hpp"
 	"_fixes.hpp"
 	"func_common.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_common.inl
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_common.inl
 	"func_vector_relational.hpp"
 	"type_vec2.hpp"
 	"type_vec3.hpp"
@@ -3951,88 +3951,88 @@
 	<limits>
 	"func_common_simd.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_common_simd.inl
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_common_simd.inl
 	"../simd/common.h"
 	<immintrin.h>
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\simd\common.h
+1498672861 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\simd\common.h
 	"platform.h"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_geometric_simd.inl
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_geometric_simd.inl
 	"../simd/geometric.h"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\simd\geometric.h
+1498672861 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\simd\geometric.h
 	"common.h"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_matrix_simd.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_matrix_simd.inl
 	"type_mat4x4.hpp"
 	"func_geometric.hpp"
 	"../simd/matrix.h"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\simd\matrix.h
+1498672861 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\simd\matrix.h
 	"geometric.h"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\trigonometric.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\trigonometric.hpp
 	"detail/func_trigonometric.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_trigonometric.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_trigonometric.hpp
 	"setup.hpp"
 	"precision.hpp"
 	"func_trigonometric.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_trigonometric.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_trigonometric.inl
 	"_vectorize.hpp"
 	<cmath>
 	<limits>
 	"func_trigonometric_simd.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_trigonometric_simd.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_trigonometric_simd.inl
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\exponential.hpp
+1498672854 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\exponential.hpp
 	"detail/func_exponential.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\common.hpp
+1498672854 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\common.hpp
 	"detail/func_common.hpp"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\packing.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\packing.hpp
 	"detail/func_packing.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_packing.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_packing.hpp
 	"type_vec2.hpp"
 	"type_vec4.hpp"
 	"func_packing.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_packing.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_packing.inl
 	"func_common.hpp"
 	"type_half.hpp"
 	"../fwd.hpp"
 	"func_packing_simd.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_half.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_half.hpp
 	"setup.hpp"
 	"type_half.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_half.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\type_half.inl
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_packing_simd.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_packing_simd.inl
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\matrix.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\matrix.hpp
 	"detail/func_matrix.hpp"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\vector_relational.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\vector_relational.hpp
 	"detail/func_vector_relational.hpp"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\integer.hpp
+1498672855 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\integer.hpp
 	"detail/func_integer.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_integer.hpp
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_integer.hpp
 	"setup.hpp"
 	"precision.hpp"
 	"func_common.hpp"
 	"func_vector_relational.hpp"
 	"func_integer.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_integer.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_integer.inl
 	"type_vec2.hpp"
 	"type_vec3.hpp"
 	"type_vec4.hpp"
@@ -4042,12 +4042,12 @@
 	<limits>
 	"func_integer_simd.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_integer_simd.inl
+1498672856 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\detail\func_integer_simd.inl
 	"../simd/integer.h"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\simd\integer.h
+1498672861 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\simd\integer.h
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glfw\include\glfw\glfw3.h
+1498672854 c:\users\jarek\desktop\grafika\gkiw_project\glfw\include\glfw\glfw3.h
 	<stddef.h>
 	<stdint.h>
 	<OpenGL/gl3.h>
@@ -4068,21 +4068,21 @@
 	<GL/glext.h>
 	<GL/glu.h>
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\constants.h
+1498672864 c:\users\jarek\desktop\grafika\gkiw_project\constants.h
 
-1495798002 source:c:\users\jarek\desktop\grafika\gkiw_project\detailed_cube.cpp
+1498672864 source:c:\users\jarek\desktop\grafika\gkiw_project\detailed_cube.cpp
 	"detailed_cube.h"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\detailed_cube.h
+1498672864 c:\users\jarek\desktop\grafika\gkiw_project\detailed_cube.h
 	"model.h"
 
-1495798003 source:c:\users\jarek\desktop\grafika\gkiw_project\lodepng.cpp
+1498672864 source:c:\users\jarek\desktop\grafika\gkiw_project\lodepng.cpp
 	"lodepng.h"
 	<stdio.h>
 	<stdlib.h>
 	<fstream>
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\lodepng.h
+1498672864 c:\users\jarek\desktop\grafika\gkiw_project\lodepng.h
 	<string.h>
 	<vector>
 	<string>
@@ -4176,25 +4176,25 @@
 	"teapot.h"
 	"torus.h"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\sphere.h
+1498672844 c:\users\jarek\desktop\grafika\gkiw_project\sphere.h
 	"model.h"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\teapot.h
+1498672844 c:\users\jarek\desktop\grafika\gkiw_project\teapot.h
 	"model.h"
 
-1495798003 c:\users\jarek\desktop\grafika\gkiw_project\torus.h
+1498672844 c:\users\jarek\desktop\grafika\gkiw_project\torus.h
 	"model.h"
 
-1495798003 source:c:\users\jarek\desktop\grafika\gkiw_project\model.cpp
+1498672864 source:c:\users\jarek\desktop\grafika\gkiw_project\model.cpp
 	"model.h"
 
-1495798003 source:c:\users\jarek\desktop\grafika\gkiw_project\sphere.cpp
+1498672844 source:c:\users\jarek\desktop\grafika\gkiw_project\sphere.cpp
 	"sphere.h"
 
-1495798003 source:c:\users\jarek\desktop\grafika\gkiw_project\teapot.cpp
+1498672844 source:c:\users\jarek\desktop\grafika\gkiw_project\teapot.cpp
 	"teapot.h"
 
-1495798003 source:c:\users\jarek\desktop\grafika\gkiw_project\torus.cpp
+1498672844 source:c:\users\jarek\desktop\grafika\gkiw_project\torus.cpp
 	"torus.h"
 
 1497559213 c:\users\patryk\desktop\gkiw_project\coords.h
