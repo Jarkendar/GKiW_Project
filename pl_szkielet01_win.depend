@@ -4090,7 +4090,7 @@
 	<iostream>
 	"lodepng.h"
 
-1496331029 source:c:\users\jarek\desktop\grafika\gkiw_project\main_file.cpp
+1498678552 source:c:\users\jarek\desktop\grafika\gkiw_project\main_file.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
@@ -4102,8 +4102,12 @@
 	"lodepng.h"
 	"constants.h"
 	"allmodels.h"
+	"coords.h"
+	<glm/gtc/type_ptr.hpp>
+	<glm/glm.hpp>
+	<string.h>
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glew\include\gl\glew.h
+1498672844 c:\users\jarek\desktop\grafika\gkiw_project\glew\include\gl\glew.h
 	<stddef.h>
 	<inttypes.h>
 	<stdint.h>
@@ -4112,7 +4116,7 @@
 	<OpenGL/glu.h>
 	<GL/glu.h>
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\type_ptr.hpp
+1498672858 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\type_ptr.hpp
 	"../gtc/quaternion.hpp"
 	"../vec2.hpp"
 	"../vec3.hpp"
@@ -4129,7 +4133,7 @@
 	<cstring>
 	"type_ptr.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\quaternion.hpp
+1498672858 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\quaternion.hpp
 	"../mat3x3.hpp"
 	"../mat4x4.hpp"
 	"../vec3.hpp"
@@ -4137,26 +4141,26 @@
 	"../gtc/constants.hpp"
 	"quaternion.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\constants.hpp
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\constants.hpp
 	"../detail/setup.hpp"
 	"constants.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\constants.inl
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\constants.inl
 	<limits>
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\quaternion.inl
+1498672858 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\quaternion.inl
 	"../trigonometric.hpp"
 	"../geometric.hpp"
 	"../exponential.hpp"
 	<limits>
 	"quaternion_simd.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\quaternion_simd.inl
+1498672858 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\quaternion_simd.inl
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\type_ptr.inl
+1498672858 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\type_ptr.inl
 	<cstring>
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\matrix_transform.hpp
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\matrix_transform.hpp
 	"../mat4x4.hpp"
 	"../vec2.hpp"
 	"../vec3.hpp"
@@ -4164,12 +4168,12 @@
 	"../gtc/constants.hpp"
 	"matrix_transform.inl"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\matrix_transform.inl
+1498672857 c:\users\jarek\desktop\grafika\gkiw_project\glm\glm\gtc\matrix_transform.inl
 	"../geometric.hpp"
 	"../trigonometric.hpp"
 	"../matrix.hpp"
 
-1495798002 c:\users\jarek\desktop\grafika\gkiw_project\allmodels.h
+1498672864 c:\users\jarek\desktop\grafika\gkiw_project\allmodels.h
 	"cube.h"
 	"detailed_cube.h"
 	"sphere.h"
@@ -4198,4 +4202,6 @@
 	"torus.h"
 
 1497559213 c:\users\patryk\desktop\gkiw_project\coords.h
+
+1498672864 c:\users\jarek\desktop\grafika\gkiw_project\coords.h
 
