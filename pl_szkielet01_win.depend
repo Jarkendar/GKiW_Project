@@ -2254,7 +2254,7 @@
 1489491214 c:\users\patryk\desktop\gkiw_project\detailed_cube.h
 	"model.h"
 
-1497650738 source:c:\users\patryk\desktop\gkiw_project\main_file.cpp
+1498687317 source:c:\users\patryk\desktop\gkiw_project\main_file.cpp
 	<GL/glew.h>
 	<GLFW/glfw3.h>
 	<glm/glm.hpp>
@@ -4201,7 +4201,7 @@
 1498672844 source:c:\users\jarek\desktop\grafika\gkiw_project\torus.cpp
 	"torus.h"
 
-1497559213 c:\users\patryk\desktop\gkiw_project\coords.h
+1498665543 c:\users\patryk\desktop\gkiw_project\coords.h
 
 1498672864 c:\users\jarek\desktop\grafika\gkiw_project\coords.h
 
